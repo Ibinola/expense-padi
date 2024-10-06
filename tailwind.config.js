@@ -5,7 +5,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        "manrope": ["Manrope", 'sans-serif'],
+        "zendots": ["Zen Dots", 'cursive'],
+        "source": ["Source Sans 3", "system-ui"]
+      }
+    },
   },
   plugins: [
     require('daisyui')
