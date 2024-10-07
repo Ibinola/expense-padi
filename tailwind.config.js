@@ -9,7 +9,8 @@ export default {
       fontFamily: {
         "manrope": ["Manrope", 'sans-serif'],
         "zendots": ["Zen Dots", 'cursive'],
-        "source": ["Source Sans 3", "system-ui"]
+        "source": ["Source Sans 3", "system-ui"],
+        "codec-pro": ['codec-pro', 'system-ui']
       }
     },
   },

@@ -1,6 +1,6 @@
 import React from 'react';
 import AuthBgImage from '../../../components/AuthBgImage';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Form, Formik } from 'formik';
 import CustomInput from '../../../components/CustomInput';
 import SignUpAuthButton from '../../../components/SignUpAuthButton';
@@ -10,6 +10,8 @@ import { signUpValidationSchema } from '../../../utils/signUpValidationSchema';
 import CustomButton from '../../../components/CustomButton';
 
 function Login() {
+  const navigate = useNavigate();
+
   const initalValues = {
     email: '',
     password: '',
@@ -17,6 +19,7 @@ function Login() {
 
   const onSubmit = (values) => {
     console.log('form data', values);
+    navigate('/dashboard');
   };
 
   return (
