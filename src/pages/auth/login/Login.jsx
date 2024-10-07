@@ -79,9 +79,12 @@ function Login() {
                     placeholder="Enter password"
                   />
 
-                  <p className="font-source text-[#0553C7] text-sm mt-4 mb-2 text-end">
+                  <Link
+                    to={'/forgot-password'}
+                    className="font-source text-[#0553C7] text-sm mt-4 mb-2 text-end"
+                  >
                     Forgot Password?
-                  </p>
+                  </Link>
 
                   <CustomButton type="submit" label="Log In" />
                 </Form>
