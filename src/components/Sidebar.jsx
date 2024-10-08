@@ -80,7 +80,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
               }
             >
               {link.icon}
-              <span className="font-medium text-sm">{link.label}</span>
+              <span className="text-sm">{link.label}</span>
             </NavLink>
           ))}
         </nav>

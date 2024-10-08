@@ -3,7 +3,6 @@ import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import { Outlet } from 'react-router-dom';
 
-
 function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -17,7 +16,7 @@ function Layout() {
       </div>
 
       <div className="flex flex-col flex-1 ml-0 lg:ml-52">
-        <div className="border">
+        <div className="border-b">
           <Navbar toggleSidebar={toggleSidebar} />
         </div>
         <main className=" p-4 flex-1 overflow-x-hidden overflow-y-auto">
