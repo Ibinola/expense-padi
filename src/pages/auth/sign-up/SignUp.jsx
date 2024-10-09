@@ -25,7 +25,7 @@ function SignUp() {
     setShowVerification(false);
   };
 
-  const initalValues = {
+  const initialValues = {
     email: '',
     password: '',
   };
@@ -75,7 +75,7 @@ function SignUp() {
 
                 {/* FORM */}
                 <Formik
-                  initialValues={initalValues}
+                  initialValues={initialValues}
                   validationSchema={signUpValidationSchema}
                   onSubmit={onSubmit}
                 >

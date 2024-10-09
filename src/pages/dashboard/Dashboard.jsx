@@ -4,6 +4,7 @@ import icon2 from '../../assets/card-2-icon.svg';
 import DashboardWidget from '../../components/DashboardWidget';
 import expenseTrackerIcon from '../../assets/expense-tracker-icon.svg';
 import CustomBarChart from '../../components/BarChart';
+import TransactionTable from '../../components/Table';
 import DonutChart from '../../components/DonutChart';
 
 function Dashboard() {
@@ -79,8 +80,9 @@ function Dashboard() {
       </div>
 
       {/* TABLE */}
-      <h4 className="text-black font-bold mt-4">Transaction</h4>
-      <div className="border rounded-lg mt-4"></div>
+      <h4 className="text-black font-bold mt-4 text-[20px] ">Transaction</h4>
+
+      <TransactionTable />
     </div>
   );
 }
