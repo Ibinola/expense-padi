@@ -13,7 +13,7 @@ function CustomInput(props) {
         type={type}
         name={name}
         placeholder={placeholder}
-        className="w-full p-3 border rounded-md border-[#D0D5DD]"
+        className="w-full p-1 md:p-2 border rounded-md border-[#D0D5DD]"
       />
       <ErrorMessage name={name} component={TextError} />
     </div>

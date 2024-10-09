@@ -64,7 +64,7 @@ function Settings() {
                 />
 
                 {/* <CustomButton type="submit" label="Save Changes" /> */}
-                <button className="py-4 border w-48 rounded-md cursor-pointer bg-[#0553C7] text-white">
+                <button className=" py-1 px-1 md:py-2 border w-36 text-sm rounded-md cursor-pointer bg-[#0553C7] text-white">
                   Save Changes
                 </button>
               </Form>
