@@ -1,7 +1,10 @@
 import React from 'react';
-import CustomButton from '../../components/CustomButton';
+// import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
 import { Form, Formik } from 'formik';
+import LabelDescription from '../../components/LabelDescription';
+import BasicModal from '../../components/Modal';
+// import Accordion from '../../components/Accordion';
 
 function Settings() {
   const initialValues = {
@@ -80,8 +83,30 @@ function Settings() {
         className="tab"
         aria-label="Notification"
       />
-      <div role="tabpanel" className="tab-content p-10">
-        Tab content 2
+      <div role="tabpanel" className="tab-content mt-4">
+        <div className="border rounded-xl p-6 space-y-4">
+          <LabelDescription
+            label="Push Notifications"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            true={true}
+          />
+          <hr />
+          <LabelDescription
+            label="Email Notification"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            true={true}
+          />
+          <hr />
+          <LabelDescription
+            label="SMS Notification"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            true={true}
+          />
+
+          <button className=" py-1 px-1 md:py-2 border w-36 text-sm rounded-md cursor-pointer bg-[#0553C7] text-white">
+            Save Changes
+          </button>
+        </div>
       </div>
 
       <input
@@ -89,10 +114,30 @@ function Settings() {
         name="my_tabs_1"
         role="tab"
         className="tab"
-        aria-label="Tab 3"
+        aria-label="Security"
+        defaultChecked
       />
-      <div role="tabpanel" className="tab-content p-10">
-        Tab content 3
+      <div role="tabpanel" className="tab-content mt-4">
+        <div className="border rounded-xl p-6 space-y-4">
+          <LabelDescription
+            label="Security"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            true={false}
+          />
+          <LabelDescription
+            label="Enable Two-Factor Authentication"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            true={true}
+          />
+          <hr />
+          <LabelDescription
+            label="Enable SSO Login or Sign Up"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            true={true}
+          />
+          {/* <Accordion /> */}
+          <BasicModal />
+        </div>
       </div>
     </div>
   );

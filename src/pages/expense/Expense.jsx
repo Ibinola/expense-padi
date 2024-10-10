@@ -6,8 +6,15 @@ import expenseTrackerIcon from '../../assets/expense-tracker-icon.svg';
 import CustomBarChart from '../../components/BarChart';
 import TransactionTable from '../../components/Table';
 import DonutChart from '../../components/DonutChart';
+// import { FiPlus } from 'react-icons/fi';
+import Example from '../../components/Dropdown';
 
 function Expense() {
+  const options = [
+    { label: 'Manual entry of report', href: '/account' },
+    { label: 'Scan receipt', href: '/support' },
+    { label: 'Import account summary', href: '/license' },
+  ];
   return (
     <div className="font-manrope p-4">
       {/* HEADER */}
@@ -15,7 +22,19 @@ function Expense() {
         <span className="border text-xs px-4 py-2 rounded-md">
           Jan 24 - Dec 31 2024
         </span>
-        <button className="bg-[#0553C7] text-xs px-4 py-2 rounded-md text-white">
+        {/* <button className="flex items-center gap-1 bg-[#fffff] text-xs px-3 py-2 border border-[#0553C7] rounded-md font-medium text-[#0553C7]">
+          <FiPlus />
+          Add Expense
+        </button> */}
+        {/* <Example /> */}
+        <Example
+          buttonText="Add Expense"
+          options={options}
+          // onSelectOption={handleSelectOption}
+          menuClass="custom-menu-class"
+          buttonClass="custom-button-class"
+        />
+        <button className="flex items-center gap-1 bg-[#0553C7] text-xs px-4 py-2 rounded-md text-white">
           Export report
         </button>
       </div>
