@@ -6,15 +6,17 @@ import expenseTrackerIcon from '../../assets/expense-tracker-icon.svg';
 import CustomBarChart from '../../components/BarChart';
 import TransactionTable from '../../components/Table';
 import DonutChart from '../../components/DonutChart';
+import DateRangePicker from '../../components/DatePicker';
 
 function Dashboard() {
   return (
     <div className="font-manrope p-4">
       {/* HEADER */}
       <div className="flex flex-col md:flex-row justify-end space-y-2 md:space-y-0 md:space-x-2">
-        <span className="border text-xs px-4 py-2 rounded-md">
+        {/* <span className="border text-xs px-4 py-2 rounded-md">
           Jan 24 - Dec 31 2024
-        </span>
+        </span> */}
+        <DateRangePicker />
         <button className="bg-[#0553C7] text-xs px-4 py-2 rounded-md text-white">
           Export report
         </button>
@@ -55,10 +57,8 @@ function Dashboard() {
               <h2 className="text-[17px] font-medium">Expense Tracker</h2>
             </div>
 
-            <div className="mr-2">
-              <span className="border text-xs px-4 py-1 rounded-md">
-                Jan 01 - Dec 31 2023
-              </span>
+            <div className="">
+              <DateRangePicker />
             </div>
           </div>
           <hr />

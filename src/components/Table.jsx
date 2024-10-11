@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import tableId from '../assets/table-icon.svg';
 import { IoIosArrowDown } from 'react-icons/io';
-import { HiDotsHorizontal } from 'react-icons/hi';
+import { BsThreeDots } from 'react-icons/bs';
+import { IoEyeOutline, IoTrashOutline } from 'react-icons/io5';
 
 const transactions = [
   {
@@ -73,6 +74,12 @@ const transactions = [
 ];
 
 export default function TransactionTable() {
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleDropdown = (id) => {
+    setOpenDropdown(openDropdown === id ? null : id);
+  };
+
   return (
     <div className="mt-4 flow-root ">
       <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -189,9 +196,30 @@ export default function TransactionTable() {
                       </div>
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                      <button className="text-indigo-600 hover:text-indigo-900">
-                        <HiDotsHorizontal />
+                      <button
+                        onClick={() => handleDropdown(transaction.id)}
+                        className="text-gray-500 hover:text-gray-700 focus:outline-none"
+                      >
+                        <BsThreeDots />
                       </button>
+                      {openDropdown === transaction.id && (
+                        <div className="absolute right-0 mt-2 w-28 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                          <div className="py-1">
+                            <button
+                              onClick={() => handleView(transaction)}
+                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full border-b"
+                            >
+                              <IoEyeOutline className="mr-2" /> View
+                            </button>
+                            <button
+                              onClick={() => handleDelete(transaction)}
+                              className="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-full"
+                            >
+                              <IoTrashOutline className="mr-2" /> Delete
+                            </button>
+                          </div>
+                        </div>
+                      )}
                     </td>
                   </tr>
                 ))}
