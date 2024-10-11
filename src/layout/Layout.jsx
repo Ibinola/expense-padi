@@ -9,19 +9,20 @@ function Layout() {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-  return (
-    <div className="flex flex-col h-full md:h-screen">
-      <div className="border border-b ">
-        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      </div>
 
-      <div className="flex flex-col flex-1 ml-0 lg:ml-52">
-        <div className="border-b">
-          <Navbar toggleSidebar={toggleSidebar} />
+  return (
+    <div className="flex h-screen overflow-hidden">
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+
+      <div className="flex flex-col flex-1 w-full">
+        <Navbar toggleSidebar={toggleSidebar} />
+        <div className="flex-1 overflow-hidden pt-16">
+          <main className="h-full overflow-y-auto lg:ml-52">
+            <div className="p-4">
+              <Outlet />
+            </div>
+          </main>
         </div>
-        <main className=" p-4 flex-1 overflow-x-hidden overflow-y-auto">
-          <Outlet />
-        </main>
       </div>
     </div>
   );
