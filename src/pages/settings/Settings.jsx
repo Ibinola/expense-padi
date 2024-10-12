@@ -1,9 +1,9 @@
 import React from 'react';
-// import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
 import { Form, Formik } from 'formik';
 import LabelDescription from '../../components/LabelDescription';
 import BasicModal from '../../components/Modal';
+import CustomDropdown from '../../components/CustomDropdown';
 // import Accordion from '../../components/Accordion';
 
 function Settings() {
@@ -30,7 +30,7 @@ function Settings() {
       />
       <div role="tabpanel" className="tab-content mt-4">
         <div className="border rounded-xl p-6">
-          <h2 className="font-zendots text-black mb-8 text-xl lg:text-2xl">
+          <h2 className="font-zendots text-black mb-2 text-xl lg:text-2xl">
             Expense <span className="text-[#0557C2]">Padi</span>
           </h2>
 
@@ -45,25 +45,45 @@ function Settings() {
                   name="firstName"
                   type="text"
                   label="First Name"
-                  placeholder=""
+                  placeholder="Enter first name"
                 />
                 <CustomInput
                   name="lastName"
                   type="text"
                   label="Last Name"
-                  placeholder="Enter password"
+                  placeholder="Enter last name"
                 />
-                <CustomInput
+                <CustomDropdown
+                  label="Select Country"
                   name="country"
-                  type="text"
-                  label="Country"
-                  placeholder="Select Country"
+                  options={[
+                    { value: 'nigeria', label: 'Nigeria' },
+                    { value: 'ghana', label: 'Ghana' },
+                    { value: 'kenya', label: 'Kenya' },
+                    { value: 'southafrica', label: 'South Africa' },
+                    { value: 'egypt', label: 'Egypt' },
+                    { value: 'brazil', label: 'Brazil' },
+                    { value: 'germany', label: 'Germany' },
+                    { value: 'canada', label: 'Canada' },
+                    { value: 'japan', label: 'Japan' },
+                    { value: 'india', label: 'India' },
+                  ]}
                 />
-                <CustomInput
+                <CustomDropdown
+                  label="Select City"
                   name="city"
-                  type="text"
-                  label="City"
-                  placeholder="Select City"
+                  options={[
+                    { value: 'lagos', label: 'Lagos' },
+                    { value: 'accra', label: 'Accra' },
+                    { value: 'nairobi', label: 'Nairobi' },
+                    { value: 'cape_town', label: 'Cape Town' },
+                    { value: 'cairo', label: 'Cairo' },
+                    { value: 'new_york', label: 'New York' },
+                    { value: 'sao_paulo', label: 'São Paulo' },
+                    { value: 'berlin', label: 'Berlin' },
+                    { value: 'toronto', label: 'Toronto' },
+                    { value: 'tokyo', label: 'Tokyo' },
+                  ]}
                 />
 
                 {/* <CustomButton type="submit" label="Save Changes" /> */}
@@ -87,23 +107,23 @@ function Settings() {
         <div className="border rounded-xl p-6 space-y-4">
           <LabelDescription
             label="Push Notifications"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            description="Receive real-time alerts directly on your device about important updates and activities."
             true={true}
           />
           <hr />
           <LabelDescription
             label="Email Notification"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            description="Stay informed with email updates for account activity, promotions, and more."
             true={true}
           />
           <hr />
           <LabelDescription
             label="SMS Notification"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            description="Get instant text messages about critical updates and actions taken on your account."
             true={true}
           />
 
-          <button className=" py-1 px-1 md:py-2 border w-36 text-sm rounded-md cursor-pointer bg-[#0553C7] text-white">
+          <button className="py-1 px-1 md:py-2 border w-36 text-sm rounded-md cursor-pointer bg-[#0553C7] text-white">
             Save Changes
           </button>
         </div>
@@ -121,22 +141,20 @@ function Settings() {
         <div className="border rounded-xl p-6 space-y-4">
           <LabelDescription
             label="Security"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            description="Ensure the safety of your account by reviewing and updating your security settings."
             true={false}
           />
           <LabelDescription
             label="Enable Two-Factor Authentication"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            description="Add an extra layer of security by requiring a code in addition to your password when logging in."
             true={true}
           />
           <hr />
           <LabelDescription
             label="Enable SSO Login or Sign Up"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            description="Allow users to sign in using a single set of credentials via Single Sign-On (SSO) for a seamless experience."
             true={true}
           />
-          {/* <Accordion /> */}
-          <BasicModal />
         </div>
       </div>
     </div>
