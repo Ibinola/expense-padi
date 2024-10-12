@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import img from '../../assets/bank-accounts.svg';
 import { FiPlus } from 'react-icons/fi';
+import heroImg from '../../assets/bank-accounts.svg';
 import CustomInput from '../../components/CustomInput';
 import CustomDropdown from '../../components/CustomDropdown';
 import { Form } from 'formik';
 import { Formik } from 'formik';
+import img from '../../assets/table-icon.svg';
 import { Modal } from '@mui/material';
+import { HiChevronDown, HiDotsHorizontal, HiEye } from 'react-icons/hi';
+import { AiOutlineClose } from 'react-icons/ai';
 
 function BankAccounts() {
   const [open, setOpen] = React.useState(false);
@@ -33,17 +36,42 @@ function BankAccounts() {
   const renderAccountCard = (account, index) => (
     <div
       key={index}
-      className="bg-blue-500 text-white rounded-lg p-4 mb-4 w-full max-w-md font-manrope"
+      className="relative bg-gradient-to-r from-[#3882F0] to-[#4081e4] text-white rounded-lg p-4 mb-4 w-full max-w-md font-manrope overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-30 border border-white/20"
     >
-      <h3 className="text-sm mb-2">Account Balance</h3>
-      <p className="text-lg mb-4">{account.balance}</p>
-      <div className="flex items-center">
-        <div className="bg-red-500 rounded-full w-8 h-8 flex items-center justify-center mr-2">
-          {account.bank_name.charAt(0)}
+      {/* Card Content */}
+      <div className="relative z-10">
+        {/* Header */}
+        <div className="flex justify-between items-center">
+          <h3 className="text-sm mb-2 text-[#CDDDF4]">Account Balance</h3>
+          <div className="bg-[#81aceb] cursor-pointer border text-[#011128] rounded-lg p-1">
+            <HiDotsHorizontal />
+          </div>
         </div>
-        <div>
-          <p>{account.account_number}</p>
-          <p>{account.account_name}</p>
+        {/* Balance */}
+        <div className="flex items-center justify-between">
+          <p className="text-2xl font-semibold text-[#CDDDF4]">
+            {account.balance}
+          </p>
+          <div className="text-white cursor-pointer">
+            <HiEye />
+          </div>
+        </div>
+        <div className=" my-3 border-t border-[#FFFFFF33] -mx-4 "></div>
+
+        {/* Bank Details */}
+        <div className="mt-2 bg-[#ffffff33] rounded-lg flex items-center justify-between ">
+          <div className="flex items-center p-2">
+            <div className="mr-2">
+              <img src={img} alt="bank logo" className="w-7 h-7" />
+            </div>
+            <div>
+              <p className="text-sm text-[#FFFFFF]">{account.account_number}</p>
+              <p className="text-sm text-[#D1D1D1]">{account.account_name}</p>
+            </div>
+          </div>
+          <div className="text-[#CDDDF4] cursor-pointer">
+            <HiChevronDown />
+          </div>
         </div>
       </div>
     </div>
@@ -62,11 +90,10 @@ function BankAccounts() {
         </button>
       </div>
 
-
       {accounts.length === 0 ? (
         <div className="flex flex-col items-center space-y-4">
           <img
-            src={img}
+            src={heroImg}
             alt="acct-image"
             className="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48"
           />
@@ -99,45 +126,64 @@ function BankAccounts() {
         aria-describedby="modal-modal-description"
       >
         <div
-          className="bg-white font-manrope rounded-3xl border mx-auto p-5 
-                          w-[90%] max-w-[500px] md:max-w-[650px] 
-                          h-auto max-h-[90vh] overflow-y-auto mt-10"
+          className="bg-white font-manrope rounded-3xl border mx-auto p-6 
+                w-[90%] max-w-[500px] md:max-w-[600px] 
+                h-auto max-h-[90vh] overflow-y-auto mt-10 relative"
         >
+          {/* Close Button */}
+          <button
+            className="absolute top-4 right-4 text-gray-500 hover:text-black"
+            onClick={handleClose}
+          >
+            <AiOutlineClose size={24} />
+          </button>
+
+          {/* Modal Content */}
           <div className="mx-auto items-center">
-            <h2 className="text-[24px] md:text-[32px] font-bold text-center">
+            {/* Modal Title */}
+            <h2 className="text-[24px] md:text-[28px] font-bold text-center mb-5">
               Link Account Details
             </h2>
 
             <Formik initialValues={initialValues} onSubmit={onSubmit}>
               {({ isSubmitting }) => (
-                <Form className="flex flex-col space-y-3">
+                <Form className="flex flex-col space-y-4">
+                  {/* Bank Name Dropdown */}
                   <CustomDropdown
                     label="Bank Name"
-                    name="color"
+                    name="bank"
                     options={[
-                      { value: 'accessbank', label: 'Access Bank' },
-                      { value: 'firstbank', label: 'First Bank' },
-                      { value: 'zenithbank', label: 'Zenith Bank' },
+                      { value: 'gtb', label: 'Guaranty Trust Bank' },
+                      // Add other bank options here
                     ]}
                   />
 
+                  {/* Account Number Input */}
                   <CustomInput
                     name="account_number"
                     type="number"
                     label="Account Number"
                     placeholder="Enter account number"
+                    className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
+
+                  {/* Account Name Input */}
                   <CustomInput
                     name="account_name"
                     type="text"
                     label="Account Name"
                     placeholder="Enter account name"
+                    className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
 
+                  {/* Continue Button */}
                   <button
                     type="submit"
-                    className="py-4 mt-10 w-full text-sm rounded-md cursor-pointer 
-                                 bg-[#0553C7] text-white"
+                    className={`py-4 mt-6 w-full text-sm rounded-md 
+                            bg-blue-600 text-white 
+                            ${isSubmitting ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
+                          `}
+                    disabled={isSubmitting}
                   >
                     Continue
                   </button>
