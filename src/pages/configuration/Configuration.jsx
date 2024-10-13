@@ -9,6 +9,7 @@ import CustomInput from '../../components/CustomInput';
 import { FaEye, FaTrash } from 'react-icons/fa';
 import { IoEyeOutline } from 'react-icons/io5';
 import { RiDeleteBinLine } from 'react-icons/ri';
+import CustomTextArea from '../../components/CustomTextArea';
 
 function Configuration() {
   const [open, setOpen] = React.useState(false);
@@ -147,7 +148,7 @@ function Configuration() {
                     />
                   </div>
                   <div>
-                    <CustomInput
+                    <CustomTextArea
                       name="remarksTrails"
                       type="text"
                       label="Remarks trails"
