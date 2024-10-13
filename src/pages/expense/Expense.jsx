@@ -6,9 +6,7 @@ import expenseTrackerIcon from '../../assets/expense-tracker-icon.svg';
 import CustomBarChart from '../../components/BarChart';
 import TransactionTable from '../../components/Table';
 import DonutChart from '../../components/DonutChart';
-// import { FiPlus } from 'react-icons/fi';
-// import Example from '../../components/Dropdown';
-// import CustomDropdown from '../../components/CustomDropdown';
+import ExpensesWidget from '../../components/ExpensesWidget';
 
 function Expense() {
   const options = [
@@ -23,26 +21,20 @@ function Expense() {
         <span className="border text-xs px-4 py-2 rounded-md">
           Jan 24 - Dec 31 2024
         </span>
-        {/* <button className="flex items-center gap-1 bg-[#fffff] text-xs px-3 py-2 border border-[#0553C7] rounded-md font-medium text-[#0553C7]">
-          <FiPlus />
-          Add Expense
-        </button> */}
-        {/* <Example /> */}
-        {/* <CustomDropdown
-          buttonText="Add Expense"
-          options={options}
-          // onSelectOption={handleSelectOption}
-          menuClass="custom-menu-class"
-          buttonClass="custom-button-class"
-        /> */}
+
         <button className="flex items-center gap-1 bg-[#0553C7] text-xs px-4 py-2 rounded-md text-white">
           Export report
         </button>
       </div>
 
       {/* CARDS */}
-      <div className="mt-3 flex flex-col md:flex-row gap-4">
+      <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Income Card */}
+        <ExpensesWidget
+          balance="N200,000,00.00"
+          accountNumber="0123456789"
+          accountName="John Doe"
+        />
         <DashboardWidget
           title="Income"
           amount="N200,000,00.00"
