@@ -14,24 +14,41 @@ import CustomTextArea from '../../components/CustomTextArea';
 function Configuration() {
   const [open, setOpen] = React.useState(false);
   const [rules, setRules] = useState([]);
+  const [editingRule, setEditingRule] = useState(null);
   const initialValues = {
     typeOfTransaction: '',
     remarksTrails: '',
     remark: '',
   };
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setEditingRule(null);
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
+  const handleEditRule = (rule) => {
+    setEditingRule(rule);
+    setOpen(true);
+  };
 
   const onSubmit = (values, { resetForm }) => {
-    if (rules.length < 5) {
+    if (editingRule) {
+      // Edit existing rule
+      setRules(
+        rules.map((rule) =>
+          rule.id === editingRule.id ? { ...values, id: rule.id } : rule
+        )
+      );
+    } else if (rules.length < 5) {
+      // Add new rule
       setRules([...rules, { ...values, id: Date.now() }]);
-      resetForm();
-      setOpen(false);
     } else {
       alert('Maximum number of rules (5) reached');
+      return;
     }
-    console.log(values);
+    resetForm();
+    setOpen(false);
+    setEditingRule(null);
   };
 
   const handleDeleteRule = (id) => {
@@ -77,11 +94,14 @@ function Configuration() {
                   </div>
                 </div>
                 <div className="flex space-x-2">
-                  <button className="text-gray-400 hover:text-gray-600">
+                  <button
+                    className="text-gray-400 hover:text-gray-600 cursor-pointer "
+                    onClick={() => handleEditRule(rule)}
+                  >
                     <IoEyeOutline size={20} />
                   </button>
                   <button
-                    className="text-gray-400 hover:text-red-500"
+                    className="text-gray-400 cursor-pointer hover:text-red-500"
                     onClick={() => handleDeleteRule(rule.id)}
                   >
                     <RiDeleteBinLine size={20} />
@@ -134,7 +154,10 @@ function Configuration() {
               This helps to keep track of your spending with precision
             </p>
 
-            <Formik initialValues={initialValues} onSubmit={onSubmit}>
+            <Formik
+              initialValues={editingRule || initialValues}
+              onSubmit={onSubmit}
+            >
               {({ isSubmitting }) => (
                 <Form className="flex flex-col space-y-4">
                   <div>
@@ -172,7 +195,7 @@ function Configuration() {
                     className="py-4 mt-6 text-sm rounded-md cursor-pointer 
                                bg-[#0553C7] text-white"
                   >
-                    Make setting
+                    {editingRule ? 'Edit Rule' : 'Make Setting'}
                   </button>
                 </Form>
               )}
