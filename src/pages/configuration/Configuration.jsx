@@ -1,12 +1,11 @@
 import React from 'react';
 import { PiNotePencil } from 'react-icons/pi';
 import { useState } from 'react';
-import trackingrulehero from '../../assets/tracking-rule-hero.svg';
+import { getImageForRule } from '../../utils/getImageForRule';
 import { Modal } from '@mui/material';
 import { Form, Formik } from 'formik';
 import CustomDropdown from '../../components/CustomDropdown';
-import CustomInput from '../../components/CustomInput';
-import { FaEye, FaTrash } from 'react-icons/fa';
+import trackingrulehero from '../../assets/tracking-rule-hero.svg';
 import { IoEyeOutline } from 'react-icons/io5';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import CustomTextArea from '../../components/CustomTextArea';
@@ -33,14 +32,12 @@ function Configuration() {
 
   const onSubmit = (values, { resetForm }) => {
     if (editingRule) {
-      // Edit existing rule
       setRules(
         rules.map((rule) =>
           rule.id === editingRule.id ? { ...values, id: rule.id } : rule
         )
       );
     } else if (rules.length < 5) {
-      // Add new rule
       setRules([...rules, { ...values, id: Date.now() }]);
     } else {
       alert('Maximum number of rules (5) reached');
@@ -80,7 +77,7 @@ function Configuration() {
               >
                 <div className="flex items-center space-x-4">
                   <img
-                    src={`/path/to/${rule.remark.toLowerCase()}-icon.png`}
+                    src={getImageForRule(rule.remark)}
                     alt={rule.remark}
                     className="w-12 h-12 object-cover rounded-xl"
                   />
