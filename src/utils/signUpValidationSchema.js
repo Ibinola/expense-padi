@@ -7,3 +7,14 @@ export const signUpValidationSchema = Yup.object({
 })
 
 
+export const linkAccountValidationSchema = Yup.object({
+    accountNumber: Yup.string().required("Account Number Required"),
+    bankName: Yup.string().required("Please select a bank"),
+    accountName: Yup.string().required("Account Name Required"),
+})
+
+export const trackingRulesValidationSchema = Yup.object({
+    typeOfTransaction: Yup.string().required("Type of Transaction Required"),
+    remarksTrails: Yup.string().required("Remark Trail Required"),
+    remark: Yup.string().required("Please select a remark"),
+})

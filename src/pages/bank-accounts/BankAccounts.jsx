@@ -9,18 +9,32 @@ import img from '../../assets/table-icon.svg';
 import { Modal } from '@mui/material';
 import { HiChevronDown, HiDotsHorizontal, HiEye } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
+import { linkAccountValidationSchema } from '../../utils/signUpValidationSchema';
+import { IoTrashOutline } from 'react-icons/io5';
 
 function BankAccounts() {
   const [open, setOpen] = React.useState(false);
   const [accounts, setAccounts] = useState([]);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [modal, openModal] = useState(false);
+
+  const handleDropdown = (id) => {
+    setOpenDropdown(openDropdown === id ? null : id);
+  };
+
+  const handleUnlink = (accountNumber) => {
+    setAccounts(
+      accounts.filter((item) => item.accountNumber !== accountNumber)
+    );
+  };
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const initialValues = {
-    account_name: '',
-    account_number: '',
-    bank_name: '',
+    accountName: '',
+    accountNumber: '',
+    bankName: '',
   };
 
   const onSubmit = (values, { resetForm }) => {
@@ -43,9 +57,12 @@ function BankAccounts() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <h3 className="text-sm mb-2 text-[#CDDDF4]">Account Balance</h3>
-          <div className="bg-[#81aceb] cursor-pointer border text-[#011128] rounded-lg p-1">
+          <button
+            onClick={() => handleDropdown(account.accountNumber)}
+            className="bg-[#81aceb] cursor-pointer border text-[#011128] rounded-lg p-1"
+          >
             <HiDotsHorizontal />
-          </div>
+          </button>
         </div>
         {/* Balance */}
         <div className="flex items-center justify-between">
@@ -55,6 +72,18 @@ function BankAccounts() {
           <div className="text-white cursor-pointer">
             <HiEye />
           </div>
+          {openDropdown === account.accountNumber && (
+            <div className="absolute right-0 mt-2 w-28 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+              <div className="py-1">
+                <button
+                  onClick={() => handleUnlink(account.accountNumber)}
+                  className="flex items-center py-3 px-1 text-red-500  text-xs  w-full"
+                >
+                  <IoTrashOutline className="mr-2" /> Unlink account
+                </button>
+              </div>
+            </div>
+          )}
         </div>
         <div className=" my-3 border-t border-[#FFFFFF33] -mx-4 "></div>
 
@@ -65,8 +94,8 @@ function BankAccounts() {
               <img src={img} alt="bank logo" className="w-7 h-7" />
             </div>
             <div>
-              <p className="text-sm text-[#FFFFFF]">{account.account_number}</p>
-              <p className="text-sm text-[#D1D1D1]">{account.account_name}</p>
+              <p className="text-sm text-[#FFFFFF]">{account.accountNumber}</p>
+              <p className="text-sm text-[#D1D1D1]">{account.accountName}</p>
             </div>
           </div>
           <div className="text-[#CDDDF4] cursor-pointer">
@@ -145,22 +174,23 @@ function BankAccounts() {
               Link Account Details
             </h2>
 
-            <Formik initialValues={initialValues} onSubmit={onSubmit}>
+            <Formik
+              initialValues={initialValues}
+              onSubmit={onSubmit}
+              validationSchema={linkAccountValidationSchema}
+            >
               {({ isSubmitting }) => (
                 <Form className="flex flex-col space-y-4">
                   {/* Bank Name Dropdown */}
                   <CustomDropdown
                     label="Bank Name"
-                    name="bank"
-                    options={[
-                      { value: 'gtb', label: 'Guaranty Trust Bank' },
-                      // Add other bank options here
-                    ]}
+                    name="bankName"
+                    options={[{ value: 'gtb', label: 'Guaranty Trust Bank' }]}
                   />
 
                   {/* Account Number Input */}
                   <CustomInput
-                    name="account_number"
+                    name="accountNumber"
                     type="number"
                     label="Account Number"
                     placeholder="Enter account number"
@@ -169,7 +199,7 @@ function BankAccounts() {
 
                   {/* Account Name Input */}
                   <CustomInput
-                    name="account_name"
+                    name="accountName"
                     type="text"
                     label="Account Name"
                     placeholder="Enter account name"
@@ -181,11 +211,10 @@ function BankAccounts() {
                     type="submit"
                     className={`py-4 mt-6 w-full text-sm rounded-md 
                             bg-blue-600 text-white 
-                            ${isSubmitting ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
-                          `}
+                            ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                     disabled={isSubmitting}
                   >
-                    Continue
+                    {isSubmitting ? 'Linking Account...' : 'Continue'}
                   </button>
                 </Form>
               )}
