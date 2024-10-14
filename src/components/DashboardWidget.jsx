@@ -6,9 +6,9 @@ function DashboardWidget(props) {
     <div className="flex-1 bg-[#F6F6F6] rounded-xl p-2 shadow-sm">
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-sm font-semibold ml-2">{props.title}</h2>
-        <div className="cursor-pointer border text-[#4F4F4F] rounded-md p-1">
+        {/* <div className="cursor-pointer border text-[#4F4F4F] rounded-md p-1">
           <HiDotsHorizontal />
-        </div>
+        </div> */}
         {/* <button className="text-gray-400">...</button> */}
       </div>
       <div className="mb-2 border rounded-md bg-[#FFFFFF] p-4 flex justify-between items-center">

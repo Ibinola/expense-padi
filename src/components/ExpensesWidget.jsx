@@ -10,9 +10,9 @@ function ExpensesWidget(props) {
         {/* Header */}
         <div className="flex justify-between items-center">
           <h3 className="text-sm mb-2 text-[#CDDDF4]">Account Balance</h3>
-          <div className="bg-[#81aceb] cursor-pointer border text-[#011128] rounded-lg p-1">
+          {/* <div className="bg-[#81aceb] cursor-pointer border text-[#011128] rounded-lg p-1">
             <HiDotsHorizontal />
-          </div>
+          </div> */}
         </div>
         {/* Balance */}
         <div className="flex items-center justify-between">

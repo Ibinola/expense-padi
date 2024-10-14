@@ -9,7 +9,7 @@ const DateRangePicker = () => {
   return (
     <div className="">
       <DatePicker
-        className="p-3 text-center border cursor-pointer rounded-md text-xs text-black-500 mr-3"
+        className="p-3 text-center border border-[#F3F3F3] outline-none cursor-pointer rounded-md text-xs text-black-500 mr-3"
         selected={startDate}
         onChange={(dates) => {
           const [start, end] = dates;
