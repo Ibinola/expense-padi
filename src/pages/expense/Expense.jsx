@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import icon1 from '../../assets/card-1-icon.svg';
 import icon2 from '../../assets/card-2-icon.svg';
 import DashboardWidget from '../../components/DashboardWidget';
@@ -7,12 +7,16 @@ import CustomBarChart from '../../components/BarChart';
 import TransactionTable from '../../components/Table';
 import DonutChart from '../../components/DonutChart';
 import ExpensesWidget from '../../components/ExpensesWidget';
+import DropdownMenu from '../../components/DropdownMenu';
+import expenseIcon1 from '../../assets/expense-icon-1.svg';
+import expenseIcon2 from '../../assets/expense-icon-2.svg';
+import expenseIcon3 from '../../assets/expense-icon-3.svg';
 
 function Expense() {
   const options = [
-    { label: 'Manual entry of report', href: '/account' },
-    { label: 'Scan receipt', href: '/support' },
-    { label: 'Import account summary', href: '/license' },
+    { label: 'Manual entry of report', icon: <img src={expenseIcon1} /> },
+    { label: 'Scan receipt', icon: <img src={expenseIcon2} /> },
+    { label: 'Import account summary', icon: <img src={expenseIcon3} /> },
   ];
   return (
     <div className="font-manrope p-4">
@@ -22,6 +26,7 @@ function Expense() {
           Jan 24 - Dec 31 2024
         </span>
 
+        <DropdownMenu options={options} buttonText="Add Expense" />
         <button className="flex items-center gap-1 bg-[#0553C7] text-xs px-4 py-2 rounded-md text-white">
           Export report
         </button>

@@ -9,6 +9,8 @@ import DonutChart from '../../components/DonutChart';
 import DateRangePicker from '../../components/DatePicker';
 
 function Dashboard() {
+
+
   return (
     <div className="font-manrope p-4">
       {/* HEADER */}
