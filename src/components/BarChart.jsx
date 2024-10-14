@@ -29,7 +29,45 @@ function CustomBarChart() {
             <CartesianGrid strokeDasharray="1 5" />
             <XAxis dataKey="name" />
             <YAxis />
-            <Tooltip />
+            <Tooltip
+              wrapperStyle={{
+                backgroundColor: '#2c3e50',
+                border: 'none',
+                borderRadius: '8px',
+                padding: '10px',
+                boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
+              }}
+              contentStyle={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                padding: '0',
+              }}
+              labelStyle={{
+                color: 'white',
+                fontWeight: 'bold',
+                marginBottom: '5px',
+              }}
+              itemStyle={{
+                color: 'white',
+                padding: '2px 0',
+              }}
+              formatter={(value, name) => [
+                <>
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      width: '8px',
+                      height: '8px',
+                      borderRadius: '50%',
+                      backgroundColor:
+                        name === 'Income' ? '#23AD7C' : '#FF2323',
+                      marginRight: '5px',
+                    }}
+                  ></span>
+                  {name} ₦{value.toLocaleString()}
+                </>,
+              ]}
+            />
             <Legend />
             <Bar
               barSize={10}
