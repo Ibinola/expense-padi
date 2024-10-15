@@ -66,7 +66,7 @@ function SignUp() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen  font-manrope">
+    <div className="flex flex-col md:flex-row min-h-screen items-center align-center font-manrope">
       {/* LEFT SECTION */}
       <AuthBgImage />
 

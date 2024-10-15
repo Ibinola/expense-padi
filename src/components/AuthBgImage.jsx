@@ -4,7 +4,7 @@ import bgBar from '../assets/icon-1.svg';
 
 function AuthBgImage() {
   return (
-    <div className="hidden bg-[#0553C7] text-center text-white md:flex flex-col items-center p-6 w-full md:w-1/2 rounded-none md:rounded-r-3xl">
+    <div className="hidden bg-[#0553C7] justify-center text-center min-h-screen text-white md:flex flex-col items-center p-6 w-full md:w-1/2 rounded-none md:rounded-r-3xl">
       <img
         src={signUpBackgroundImage}
         className="w-full max-w-xs lg:max-w-md"

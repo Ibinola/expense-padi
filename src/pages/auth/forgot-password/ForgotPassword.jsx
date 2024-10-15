@@ -12,7 +12,7 @@ function ForgotPassword() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen  font-manrope">
+    <div className="flex flex-col md:flex-row min-h-screen items-center align-center font-manrope">
       <AuthBgImage />
 
       <div className="p-4 md:p-5 w-full md:w-1/2 mx-auto">
