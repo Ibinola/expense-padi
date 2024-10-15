@@ -23,7 +23,18 @@ function Login() {
   const onSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
       const { email, password } = values;
-      await signInWithEmailAndPassword(auth, email, password);
+      // const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      // Get the user's ID token
+      const token = await userCredential.user.getIdToken();
+
+      // Store the token in localStorage
+      localStorage.setItem('authToken', token);
 
       // Show success toast
       toast.success('Logged in successfully!');
