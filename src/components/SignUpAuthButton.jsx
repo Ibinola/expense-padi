@@ -1,8 +1,11 @@
-function SignUpAuthButton(props) {
+function SignUpAuthButton({ name, icon, handleSignUp }) {
   return (
-    <button className="btn bg-white border-[#D0D5DD] rounded-lg disabled:transform-none">
-      {props.icon}
-      {props.name}
+    <button
+      className="btn bg-white border-[#D0D5DD] rounded-lg disabled:transform-none"
+      onClick={handleSignUp}
+    >
+      {icon}
+      {name}
     </button>
   );
 }

@@ -10,10 +10,15 @@ import { Link } from 'react-router-dom';
 import { userSignUpValidationSchema } from '../../../utils/signUpValidationSchema';
 import EmailVerification from './EmailVerification';
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth';
 import { auth } from '../../../utils/firebase';
 import AuthBgImage from '../../../components/AuthBgImage';
 import { toast } from 'react-toastify';
+// import { handleGoogleSignUp } from '../../../services/authService';
 
 function SignUp() {
   const [showVerification, setShowVerification] = useState(false);
@@ -61,6 +66,25 @@ function SignUp() {
     }
   };
 
+  const handleGoogleSignUp = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      // const user = result.user;
+      // console.log('Google Sign Up successful:', user);
+
+      toast.success('Signed up with Google successfully!');
+      navigate('/dashboard'); // Redirect to dashboard or desired page
+    } catch (error) {
+      console.error('Google Sign Up error:', error);
+      toast.error('Google Sign Up failed. Please try again.');
+    }
+  };
+
+  const handleAppleSignUp = () => {
+    console.log('not yet');
+  };
+
   const handleBack = () => {
     setShowVerification(false);
   };
@@ -94,10 +118,12 @@ function SignUp() {
                     <SignUpAuthButton
                       name="Sign up with Google"
                       icon={<FcGoogle />}
+                      handleSignUp={handleGoogleSignUp}
                     />
                     <SignUpAuthButton
                       name="Sign up with Apple"
                       icon={<FaApple />}
+                      handleSignUp={handleAppleSignUp}
                     />
                   </div>
                 </div>
