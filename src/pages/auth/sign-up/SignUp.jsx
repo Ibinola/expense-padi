@@ -146,6 +146,7 @@ function SignUp() {
                         type="submit"
                         label="Sign Up"
                         isLoading={isSubmitting}
+                        loadingText="Signing Up..."
                       />
                     </Form>
                   )}

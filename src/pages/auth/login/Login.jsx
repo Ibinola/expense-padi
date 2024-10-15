@@ -8,6 +8,9 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaApple } from 'react-icons/fa';
 import { userSignUpValidationSchema } from '../../../utils/signUpValidationSchema';
 import CustomButton from '../../../components/CustomButton';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../utils/firebase';
+import { toast } from 'react-toastify';
 
 function Login() {
   const navigate = useNavigate();
@@ -17,9 +20,25 @@ function Login() {
     password: '',
   };
 
-  const onSubmit = (values) => {
-    console.log('form data', values);
-    navigate('/dashboard');
+  const onSubmit = async (values, { setSubmitting, setFieldError }) => {
+    try {
+      const { email, password } = values;
+      await signInWithEmailAndPassword(auth, email, password);
+
+      // Show success toast
+      toast.success('Logged in successfully!');
+
+      // Redirect to dashboard
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Login error:', error);
+      setFieldError('email', error.message);
+
+      // Show error toast
+      toast.error('Login failed. Please check your credentials and try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -89,7 +108,12 @@ function Login() {
                     Forgot Password?
                   </Link>
 
-                  <CustomButton type="submit" label="Log In" />
+                  <CustomButton
+                    type="submit"
+                    label="Log In"
+                    isLoading={isSubmitting}
+                    loadingText="Logging In..."
+                  />
                 </Form>
               )}
             </Formik>

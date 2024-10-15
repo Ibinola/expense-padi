@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CustomButton({ type, label, isLoading }) {
+function CustomButton({ type, label, isLoading, loadingText = 'Loading...' }) {
   return (
     <button
       type={type}
@@ -29,7 +29,7 @@ function CustomButton({ type, label, isLoading }) {
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
             ></path>
           </svg>
-          <span>Signing Up...</span>
+          <span>{loadingText}</span>
         </div>
       ) : (
         label
