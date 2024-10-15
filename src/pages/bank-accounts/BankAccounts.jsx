@@ -22,10 +22,11 @@ function BankAccounts() {
     setOpenDropdown(openDropdown === id ? null : id);
   };
 
-  const handleUnlink = (accountNumber) => {
-    setAccounts(
-      accounts.filter((item) => item.accountNumber !== accountNumber)
+  const handleUnlink = (id) => {
+    setAccounts((prevAccounts) =>
+      prevAccounts.filter((item) => item.id !== id)
     );
+    setOpenDropdown(null);
   };
 
   const handleOpen = () => setOpen(true);
@@ -39,7 +40,7 @@ function BankAccounts() {
 
   const onSubmit = (values, { resetForm }) => {
     if (accounts.length < 5) {
-      setAccounts([...accounts, { ...values, balance: 'NIL' }]);
+      setAccounts([...accounts, { ...values, balance: 'NIL', id: Date.now() }]);
       resetForm();
       setOpen(false);
     } else {
@@ -47,9 +48,9 @@ function BankAccounts() {
     }
   };
 
-  const renderAccountCard = (account, index) => (
+  const renderAccountCard = (account) => (
     <div
-      key={index}
+      key={account.id}
       className="relative bg-gradient-to-r from-[#3882F0] to-[#4081e4] text-white rounded-lg p-4 mb-4 w-full max-w-md font-manrope overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-30 border border-white/20"
     >
       {/* Card Content */}
@@ -58,7 +59,7 @@ function BankAccounts() {
         <div className="flex justify-between items-center">
           <h3 className="text-sm mb-2 text-[#CDDDF4]">Account Balance</h3>
           <button
-            onClick={() => handleDropdown(account.accountNumber)}
+            onClick={() => handleDropdown(account.id)}
             className="bg-[#81aceb] cursor-pointer border text-[#011128] rounded-lg p-1"
           >
             <HiDotsHorizontal />
@@ -72,12 +73,12 @@ function BankAccounts() {
           <div className="text-white cursor-pointer">
             <HiEye />
           </div>
-          {openDropdown === account.accountNumber && (
+          {openDropdown === account.id && (
             <div className="absolute right-0 mt-2 w-28 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
               <div className="py-1">
                 <button
-                  onClick={() => handleUnlink(account.accountNumber)}
-                  className="flex items-center py-3 px-1 text-red-500  text-xs  w-full"
+                  onClick={() => handleUnlink(account.id)}
+                  className="flex items-center py-3 px-1 text-red-500 text-xs w-full hover:bg-gray-100"
                 >
                   <IoTrashOutline className="mr-2" /> Unlink account
                 </button>

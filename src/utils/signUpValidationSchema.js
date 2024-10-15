@@ -15,7 +15,7 @@ export const userSignUpValidationSchema = Yup.object({
 
 export const linkAccountValidationSchema = Yup.object({
     accountNumber: Yup.string().matches(/^\d{10}$/, "Account number must be 10 digits").required("Account number is required"),
-    bankName: Yup.string().oneOf(['Bank A', 'Bank B', 'Bank C'], "Please select a valid bank").required("Please select a bank"),
+    bankName: Yup.string().required("Please select a bank"),
     accountName: Yup.string().required("Account name is required"),
 });
 
