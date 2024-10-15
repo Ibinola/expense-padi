@@ -3,31 +3,66 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaApple } from 'react-icons/fa';
 import SignUpAuthButton from '../../../components/SignUpAuthButton';
 import { Form, Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import CustomInput from '../../../components/CustomInput';
 import CustomButton from '../../../components/CustomButton';
 import { Link } from 'react-router-dom';
-import { signUpValidationSchema } from '../../../utils/signUpValidationSchema';
+import { userSignUpValidationSchema } from '../../../utils/signUpValidationSchema';
 import EmailVerification from './EmailVerification';
 import { useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../utils/firebase';
 import AuthBgImage from '../../../components/AuthBgImage';
+import { toast } from 'react-toastify';
 
 function SignUp() {
   const [showVerification, setShowVerification] = useState(false);
   const [userEmail, setUserEmail] = useState('');
-
-  const onSubmit = (values) => {
-    console.log('form data', values);
-    setUserEmail(values.email);
-    setShowVerification(true);
-  };
-
-  const handleBack = () => {
-    setShowVerification(false);
-  };
+  const navigate = useNavigate();
 
   const initialValues = {
     email: '',
     password: '',
+  };
+
+  const handleSubmit = async (
+    values,
+    { setSubmitting, setFieldError, resetForm }
+  ) => {
+    try {
+      const { email, password } = values;
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      // console.log('User created:', userCredential.user);
+
+      // Show success toast
+      toast.success(
+        'Signed up successfully! Please log in with your new credentials.'
+      );
+
+      // Clear form after successful sign-up
+      resetForm();
+
+      // Redirect or show verification
+      // setUserEmail(email);
+      // setShowVerification(true);
+      navigate('/login');
+    } catch (error) {
+      // console.error('Sign up error:', error);
+      setFieldError('email', error.message);
+
+      // Show error toast
+      toast.error('Sign up failed. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleBack = () => {
+    setShowVerification(false);
   };
 
   return (
@@ -76,8 +111,8 @@ function SignUp() {
                 {/* FORM */}
                 <Formik
                   initialValues={initialValues}
-                  validationSchema={signUpValidationSchema}
-                  onSubmit={onSubmit}
+                  validationSchema={userSignUpValidationSchema}
+                  onSubmit={handleSubmit}
                 >
                   {({ isSubmitting }) => (
                     <Form className="flex flex-col">
@@ -107,7 +142,11 @@ function SignUp() {
                         .
                       </p>
 
-                      <CustomButton type="submit" label="Sign Up" />
+                      <CustomButton
+                        type="submit"
+                        label="Sign Up"
+                        isLoading={isSubmitting}
+                      />
                     </Form>
                   )}
                 </Formik>

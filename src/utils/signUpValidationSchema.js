@@ -1,20 +1,26 @@
 import * as Yup from 'yup';
 
-export const signUpValidationSchema = Yup.object({
-    email: Yup.string().email('Invalid Email').required("Email Address Required"),
-    password: Yup.string('At least 1 Uppercase Letter & 1 Special character').required("Password Required"),
+// Reusable validation
+const emailValidation = Yup.string().email('Invalid email address').required("Please enter your email address");
 
-})
-
+export const userSignUpValidationSchema = Yup.object({
+    email: emailValidation,
+    password: Yup.string()
+        .matches(
+            /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/,
+            'Must contain at least 8 characters, 1 uppercase letter, and 1 special character'
+        )
+        .required("Password is required"),
+});
 
 export const linkAccountValidationSchema = Yup.object({
-    accountNumber: Yup.string().required("Account Number Required"),
-    bankName: Yup.string().required("Please select a bank"),
-    accountName: Yup.string().required("Account Name Required"),
-})
+    accountNumber: Yup.string().matches(/^\d{10}$/, "Account number must be 10 digits").required("Account number is required"),
+    bankName: Yup.string().oneOf(['Bank A', 'Bank B', 'Bank C'], "Please select a valid bank").required("Please select a bank"),
+    accountName: Yup.string().required("Account name is required"),
+});
 
 export const trackingRulesValidationSchema = Yup.object({
-    typeOfTransaction: Yup.string().required("Type of Transaction Required"),
-    remarksTrails: Yup.string().required("Remark Trail Required"),
+    typeOfTransaction: Yup.mixed().oneOf(['Debit', 'Credit'], "Invalid transaction type").required("Transaction type is required"),
+    remarksTrails: Yup.string().required("Remark trail is required"),
     remark: Yup.string().required("Please select a remark"),
-})
+});

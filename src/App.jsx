@@ -8,7 +8,9 @@ import Expense from './pages/expense/Expense';
 import Configuration from './pages/configuration/Configuration';
 import BankAccounts from './pages/bank-accounts/BankAccounts';
 import Settings from './pages/settings/Settings';
+import { ToastContainer } from 'react-toastify';
 import LogOut from './pages/auth/logout/LogOut';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const routes = createBrowserRouter([
@@ -58,6 +60,7 @@ function App() {
   return (
     <>
       <RouterProvider router={routes} />
+      <ToastContainer />
     </>
   );
 }

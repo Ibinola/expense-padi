@@ -6,13 +6,13 @@ import CustomInput from '../../../components/CustomInput';
 import SignUpAuthButton from '../../../components/SignUpAuthButton';
 import { FcGoogle } from 'react-icons/fc';
 import { FaApple } from 'react-icons/fa';
-import { signUpValidationSchema } from '../../../utils/signUpValidationSchema';
+import { userSignUpValidationSchema } from '../../../utils/signUpValidationSchema';
 import CustomButton from '../../../components/CustomButton';
 
 function Login() {
   const navigate = useNavigate();
 
-  const initalValues = {
+  const initialValues = {
     email: '',
     password: '',
   };
@@ -63,8 +63,8 @@ function Login() {
 
             {/* FORM */}
             <Formik
-              initialValues={initalValues}
-              validationSchema={signUpValidationSchema}
+              initialValues={initialValues}
+              validationSchema={userSignUpValidationSchema}
               onSubmit={onSubmit}
             >
               {({ isSubmitting }) => (
