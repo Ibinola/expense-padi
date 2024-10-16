@@ -17,7 +17,8 @@ import {
 } from 'firebase/auth';
 import { auth } from '../../../utils/firebase';
 import AuthBgImage from '../../../components/AuthBgImage';
-import { toast } from 'react-toastify';
+import { showToast } from '../../../utils/toast-config';
+
 // import { handleGoogleSignUp } from '../../../services/authService';
 
 function SignUp() {
@@ -44,7 +45,7 @@ function SignUp() {
       // console.log('User created:', userCredential.user);
 
       // Show success toast
-      toast.success(
+      showToast.success(
         'Signed up successfully! Please log in with your new credentials.'
       );
 
@@ -60,7 +61,7 @@ function SignUp() {
       setFieldError('email', error.message);
 
       // Show error toast
-      toast.error('Sign up failed. Please try again.');
+      showToast.error('Sign up failed. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -73,11 +74,11 @@ function SignUp() {
       // const user = result.user;
       // console.log('Google Sign Up successful:', user);
 
-      toast.success('Signed up with Google successfully!');
+      showToast.success('Locked In!');
       navigate('/dashboard'); // Redirect to dashboard or desired page
     } catch (error) {
       console.error('Google Sign Up error:', error);
-      toast.error('Google Sign Up failed. Please try again.');
+      showToast.error('Google Sign Up failed. Please try again.');
     }
   };
 

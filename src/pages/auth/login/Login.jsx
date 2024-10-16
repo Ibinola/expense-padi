@@ -10,7 +10,7 @@ import { userSignUpValidationSchema } from '../../../utils/signUpValidationSchem
 import CustomButton from '../../../components/CustomButton';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../utils/firebase';
-import { toast } from 'react-toastify';
+import { showToast } from '../../../utils/toast-config';
 
 function Login() {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function Login() {
       localStorage.setItem('authToken', token);
 
       // Show success toast
-      toast.success('Logged in successfully!');
+      showToast.success('Logged in successfully!');
 
       // Redirect to dashboard
       navigate('/dashboard');
@@ -46,7 +46,9 @@ function Login() {
       setFieldError('email', error.message);
 
       // Show error toast
-      toast.error('Login failed. Please check your credentials and try again.');
+      showToast.error(
+        'Login failed. Please check your credentials and try again.'
+      );
     } finally {
       setSubmitting(false);
     }

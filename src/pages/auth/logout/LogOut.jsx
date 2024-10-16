@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import { toast } from 'react-toastify';
 import { auth } from '../../../utils/firebase';
+import { showToast } from '../../../utils/toast-config';
 
 function LogOut() {
   const navigate = useNavigate();
@@ -11,11 +11,11 @@ function LogOut() {
     try {
       await signOut(auth);
       localStorage.removeItem('authToken');
-      toast.success('Logged out successfully');
+      showToast.success('Logged out successfully');
       navigate('/login');
     } catch (error) {
       console.error('Logout error:', error);
-      toast.error('An error occurred during logout');
+      showToast.error('An error occurred during logout');
     }
   };
 
