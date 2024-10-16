@@ -116,12 +116,12 @@ function Configuration() {
             alt="acct-image"
             className="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48"
           />
-          <h3 className="text-lg md:text-xl lg:text-2xl font-bold">
-            No Set Transaction Tracking Rules
+          <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-center">
+            No Transaction Tracking Rules Set
           </h3>
-          <p className="text-center mx-auto w-full max-w-[90%] md:max-w-[450px]">
-            Add any account of your choice in order to monitor your income and
-            expense
+          <p className="text-center mx-auto w-full max-w-[90%] md:max-w-[450px] text-gray-600">
+            Set up rules to automatically categorize and monitor your income and
+            expenses across different accounts.
           </p>
           <button
             onClick={handleOpen}
