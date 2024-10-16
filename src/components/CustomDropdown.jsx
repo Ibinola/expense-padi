@@ -6,7 +6,7 @@ function CustomDropdown(props) {
   const { label, name, options, ...rest } = props;
 
   return (
-    <div className="mt-2 space-y-1">
+    <div className="mt-2 space-y-1 w-full">
       <label htmlFor={name} className="text-sm block">
         {label}
       </label>
