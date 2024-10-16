@@ -11,6 +11,7 @@ import CustomButton from '../../../components/CustomButton';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../utils/firebase';
 import { showToast } from '../../../utils/toast-config';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 function Login() {
   const navigate = useNavigate();
@@ -54,6 +55,29 @@ function Login() {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      
+      // Get the user's ID token
+      const token = await result.user.getIdToken();
+
+      // Store the token in localStorage
+      localStorage.setItem('authToken', token);
+
+      showToast.success('Logged in successfully!');
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Google Sign In error:', error);
+      showToast.error('Google Sign In failed. Please try again.');
+    }
+  };
+
+  const handleAppleLogin = async () => {
+    console.log('not yet');
+  };
+
   return (
     <div className="flex flex-col md:flex-row min-h-screen items-center align-center font-manrope">
       {/* LEFT SECTION */}
@@ -79,10 +103,12 @@ function Login() {
                 <SignUpAuthButton
                   name="Continue with Google"
                   icon={<FcGoogle />}
+                  handleSignUp={handleGoogleLogin}
                 />
                 <SignUpAuthButton
                   name="Continue with Apple"
                   icon={<FaApple />}
+                  handleSignUp={handleAppleLogin}
                 />
               </div>
             </div>
