@@ -11,6 +11,8 @@ import DropdownMenu from '../../components/DropdownMenu';
 import expenseIcon1 from '../../assets/expense-icon-1.svg';
 import expenseIcon2 from '../../assets/expense-icon-2.svg';
 import expenseIcon3 from '../../assets/expense-icon-3.svg';
+import dash1 from '../../assets/dash-icon-1.svg';
+import dash2 from '../../assets/dash-icon-2.svg';
 
 function Expense() {
   const options = [
@@ -43,7 +45,7 @@ function Expense() {
         <DashboardWidget
           title="Income"
           amount="N200,000,00.00"
-          percentage="20%"
+          percentage={dash1}
           icon={icon1}
         />
 
@@ -51,7 +53,7 @@ function Expense() {
         <DashboardWidget
           title="Expenses"
           amount="N200,000,00.00"
-          percentage="20%"
+          percentage={dash2}
           icon={icon2}
         />
       </div>

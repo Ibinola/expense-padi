@@ -5,19 +5,16 @@ import DashboardWidget from '../../components/DashboardWidget';
 import expenseTrackerIcon from '../../assets/expense-tracker-icon.svg';
 import CustomBarChart from '../../components/BarChart';
 import TransactionTable from '../../components/Table';
+import dash2 from '../../assets/dash-icon-2.svg';
+import dash1 from '../../assets/dash-icon-1.svg';
 import DonutChart from '../../components/DonutChart';
 import DateRangePicker from '../../components/DatePicker';
 
 function Dashboard() {
-
-
   return (
     <div className="font-manrope p-4">
       {/* HEADER */}
       <div className="flex flex-col md:flex-row justify-end space-y-2 md:space-y-0 md:space-x-2">
-        {/* <span className="border text-xs px-4 py-2 rounded-md">
-          Jan 24 - Dec 31 2024
-        </span> */}
         <DateRangePicker />
         <button className="bg-[#0553C7] text-xs px-4 py-2 rounded-md text-white">
           Export report
@@ -30,7 +27,7 @@ function Dashboard() {
         <DashboardWidget
           title="Income"
           amount="N200,000,00.00"
-          percentage="20%"
+          percentage={dash1}
           icon={icon1}
         />
 
@@ -38,7 +35,7 @@ function Dashboard() {
         <DashboardWidget
           title="Expenses"
           amount="N200,000,00.00"
-          percentage="20%"
+          percentage={dash2}
           icon={icon2}
         />
       </div>

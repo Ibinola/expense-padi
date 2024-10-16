@@ -16,10 +16,11 @@ function DashboardWidget(props) {
           <span className="text-2xl font-bold">{props.amount}</span>
 
           <div className="flex items-center mt-2">
-            <span className="text-green-500 bg-green-100 px-2 py-1 rounded text-sm flex items-center">
+            {/* <span className="text-green-500 bg-green-100 px-2 py-1 rounded text-sm flex items-center">
               {props.percentage}
             </span>
-            <span className="text-sm text-gray-500 ml-2">vs last month</span>
+            <span className="text-sm text-gray-500 ml-2">vs last month</span> */}
+            <img src={props.percentage} />
           </div>
         </div>
 
