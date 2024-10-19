@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import AuthBgImage from '../../../components/AuthBgImage';
 import LinkAccountDetailsForm from '../../../components/LinkAccountDetailsForm';
 import PersonalDetailsForm from '../../../components/PersonalDetailsForm';
@@ -8,23 +8,18 @@ import { showToast } from '../../../utils/toast-config';
 import { useUser } from '../../../context/UserContext';
 import { auth } from '../../../utils/firebase';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import {
+  accountDetailsReducer,
+  initialState,
+  NEXT_STEP,
+  PREV_STEP,
+  UPDATE_FORM_VALUES,
+  SUBMIT_FORM,
+} from '../../../reducers/accountDetailsReducer';
 
 function AccountDetails() {
   const { setUser } = useUser();
-  const [step, setStep] = useState(1);
-  const [formValues, setFormValues] = useState({
-    personalDetails: {
-      firstName: '',
-      lastName: '',
-    },
-    accountDetails: {
-      bankName: '',
-      accountNumber: '',
-      accountName: '',
-    },
-    pinSetup: '',
-  });
-
+  const [state, dispatch] = useReducer(accountDetailsReducer, initialState);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,33 +33,29 @@ function AccountDetails() {
   }, [navigate]);
 
   const handleNextStep = (values) => {
-    setFormValues((prev) => ({
-      ...prev,
-      [step === 1 ? 'personalDetails' : 'accountDetails']: values,
-    }));
-    setStep(step + 1);
+    dispatch({
+      type: UPDATE_FORM_VALUES,
+      payload: {
+        field: state.step === 1 ? 'personalDetails' : 'accountDetails',
+        values,
+      },
+    });
+    dispatch({ type: NEXT_STEP });
   };
 
   const handlePrevStep = () => {
-    setStep(step - 1);
+    dispatch({ type: PREV_STEP });
   };
 
   const handleSubmit = async (values) => {
-    setFormValues((prev) => ({
-      ...prev,
-      pinSetup: values.pin,
-    }));
+    dispatch({ type: SUBMIT_FORM, payload: values.pin });
 
     try {
       const userData = {
-        ...formValues.personalDetails,
-        ...formValues.accountDetails,
+        ...state.formValues.personalDetails,
+        ...state.formValues.accountDetails,
         pin: values.pin,
       };
-
-      if (values.pin) {
-        userData.pin = values.pin;
-      }
 
       const db = getFirestore();
       const authUser = auth.currentUser;
@@ -85,9 +76,11 @@ function AccountDetails() {
     }
   };
 
+  // PROGRESS BAR
   const getProgressWidth = () => {
-    return `${(step / 3) * 100}%`;
+    return `${(state.step / 3) * 100}%`;
   };
+
   return (
     <div className="flex flex-col md:flex-row min-h-screen items-center align-center font-manrope">
       {/* LEFT SECTION */}
@@ -104,20 +97,20 @@ function AccountDetails() {
           />
         </div>
 
-        {step === 1 && (
+        {state.step === 1 && (
           <PersonalDetailsForm
-            initialValues={formValues.personalDetails}
+            initialValues={state.formValues.personalDetails}
             onSubmit={handleNextStep}
           />
         )}
-        {step === 2 && (
+        {state.step === 2 && (
           <LinkAccountDetailsForm
-            initialValues={formValues.accountDetails}
+            initialValues={state.formValues.accountDetails}
             onSubmit={handleNextStep}
             onBack={handlePrevStep}
           />
         )}
-        {step === 3 && (
+        {state.step === 3 && (
           <PinSetup onSubmit={handleSubmit} onBack={handlePrevStep} />
         )}
       </div>
