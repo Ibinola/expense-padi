@@ -1,10 +1,14 @@
 import * as Yup from 'yup';
 
-// Reusable validation
 export const emailValidation = Yup.string().email('Invalid email address').required("Please enter your email address");
 
 export const forgotPasswordInitialValue = {
     email: ''
+}
+
+export const signUpInitialValues = {
+    email: '',
+    password: '',
 }
 
 export const resetPasswordInitialValues = {
@@ -37,6 +41,13 @@ export const linkAccountValidationSchema = Yup.object({
     bankName: Yup.string().required("Please select a bank"),
     accountName: Yup.string().required("Account name is required"),
 });
+
+export const PinSetupSchema = Yup.object().shape({
+    pin: Yup.string()
+        .matches(/^\d{4}$/, 'Pin must be exactly 4 digits')
+
+});
+
 
 export const linkAccountInitialValues = {
     accountName: '',

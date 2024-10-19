@@ -14,12 +14,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import ResetPassword from './pages/auth/reset-password/ResetPassword';
 import ProtectedRoute from './components/ProtectedRoute';
 import NotFound from './components/NotFound';
+import AccountDetails from './pages/auth/sign-up/AccountDetails';
 
 function App() {
   const routes = createBrowserRouter([
     {
       path: '/',
       element: <SignUp />,
+    },
+    {
+      path: '/account-details',
+      element: <AccountDetails />,
     },
     {
       path: '/login',

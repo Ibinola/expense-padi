@@ -1,11 +1,18 @@
 import React from 'react';
 
-function CustomButton({ type, label, isLoading, loadingText = 'Loading...' }) {
+function CustomButton({
+  type,
+  label,
+  isLoading,
+  loadingText = 'Loading...',
+  onClick,
+}) {
   return (
     <button
       type={type}
+      onClick={onClick}
       disabled={isLoading}
-      className="w-full bg-[#0557C2] text-white py-4 border rounded-md cursor-pointer"
+      className="w-52 mx-auto md:w-full bg-[#0557C2] text-white py-2 md:py-4 border rounded-md cursor-pointer"
     >
       {isLoading ? (
         <div className="flex justify-center items-center space-x-2">
