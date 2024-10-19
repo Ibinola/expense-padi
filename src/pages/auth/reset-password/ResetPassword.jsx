@@ -3,18 +3,42 @@ import { Formik, Form } from 'formik';
 import forgotPasswordIcon from '../../../assets/forgot-password-icon.svg';
 import { confirmPasswordReset } from 'firebase/auth';
 import { auth } from '../../../utils/firebase';
-import { toast } from 'react-toastify';
+import { showToast } from '../../../utils/toast-config';
 import CustomButton from '../../../components/CustomButton';
 import AuthBgImage from '../../../components/AuthBgImage';
+import { useNavigate } from 'react-router-dom';
 import {
   resetPasswordInitialValues,
   ResetPasswordSchema,
 } from '../../../utils/signUpValidationSchema';
 import CustomInput from '../../../components/CustomInput';
+import { useEffect, useState } from 'react';
+import { CircleLoader } from 'react-spinners';
 
 function ResetPassword() {
   const [searchParams] = useSearchParams();
-  const oobCode = searchParams.get('oobCode'); // Get the oobCode from query params
+  const navigate = useNavigate();
+  const [oobCode, setOobCode] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const code = searchParams.get('oobCode');
+    if (!code) {
+      showToast.error('error', 'Invalid password reset link');
+      navigate('/login');
+      return;
+    }
+
+    verifyPasswordResetCode(auth, code)
+      .then(() => {
+        setOobCode(code);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setErrors({ email: error.message });
+        navigate('/login');
+      });
+  }, [searchParams, navigate]);
 
   const handleSubmit = async (
     values,
@@ -22,15 +46,23 @@ function ResetPassword() {
   ) => {
     try {
       await confirmPasswordReset(auth, oobCode, values.newPassword);
-      toast.success('Password reset successfully!');
+      showToast.success('Password reset successfully!');
       resetForm();
+      navigate('/login');
     } catch (error) {
       setErrors({ newPassword: error.message });
-      toast.error(error.message);
     } finally {
       setSubmitting(false);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-75">
+        <CircleLoader />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen items-center align-center font-manrope">
@@ -82,7 +114,7 @@ function ResetPassword() {
 
                 <CustomButton
                   type="submit"
-                  label="Confirm"
+                  label={isSubmitting ? 'Confirming Password...' : 'Confirm'}
                   disabled={isSubmitting}
                 />
                 <Link

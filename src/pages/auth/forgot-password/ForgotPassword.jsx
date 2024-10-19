@@ -7,7 +7,7 @@ import CustomInput from '../../../components/CustomInput';
 import { Link } from 'react-router-dom';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../../utils/firebase';
-import { toast } from 'react-toastify';
+import { showToast } from '../../../utils/toast-config';
 import {
   emailValidation,
   forgotPasswordInitialValue,
@@ -18,11 +18,11 @@ function ForgotPassword() {
     try {
       const { email } = values;
       await sendPasswordResetEmail(auth, email);
-      toast.success('Password reset email sent successfully!');
+      showToast.success('Password reset email sent successfully!');
       resetForm();
     } catch (error) {
       setErrors({ email: error.message });
-      toast.error(error.message);
+      showToast.error(error.message);
     } finally {
       setSubmitting(false);
     }
@@ -69,7 +69,7 @@ function ForgotPassword() {
                 />
                 <CustomButton
                   type="submit"
-                  label="Reset Password"
+                  label={isSubmitting ? 'Sending...' : 'Reset Password'}
                   disabled={isSubmitting}
                 />
                 <Link

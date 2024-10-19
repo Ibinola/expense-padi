@@ -19,7 +19,6 @@ const ProtectedRoute = () => {
   }, []);
 
   if (isLoading) {
-    // You can return a loading spinner or component here
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-75">
         <CircleLoader />

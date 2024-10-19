@@ -12,10 +12,16 @@ export const resetPasswordInitialValues = {
     confirmPassword: '',
 }
 
+export const passwordValidation = Yup.string()
+    .min(8, 'Password must be at least 8 characters long')
+    .matches(
+        /^(?=.*[A-Z])(?=.*[!@#$%^&*])/,
+        'Must contain at least 1 uppercase letter and 1 special character'
+    )
+    .required("Password is required");
+
 export const ResetPasswordSchema = Yup.object().shape({
-    newPassword: Yup.string()
-        .min(6, 'Password must be at least 6 characters long')
-        .required('New Password is required'),
+    newPassword: passwordValidation,
     confirmPassword: Yup.string()
         .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
         .required('Confirm Password is required'),
@@ -23,12 +29,7 @@ export const ResetPasswordSchema = Yup.object().shape({
 
 export const userSignUpValidationSchema = Yup.object({
     email: emailValidation,
-    password: Yup.string()
-        .matches(
-            /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/,
-            'Must contain at least 8 characters, 1 uppercase letter, and 1 special character'
-        )
-        .required("Password is required"),
+    password: passwordValidation,
 });
 
 export const linkAccountValidationSchema = Yup.object({
