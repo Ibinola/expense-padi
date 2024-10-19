@@ -17,6 +17,7 @@ export const initialValues = {
     resetPassword: { newPassword: '', confirmPassword: '' },
     linkAccount: { accountName: '', accountNumber: '', bankName: '' },
     configuration: { typeOfTransaction: '', remarksTrails: '', remark: '', },
+    logIn: { email: '', password: '' }
 };
 
 // Schemas
