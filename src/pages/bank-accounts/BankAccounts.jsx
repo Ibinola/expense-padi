@@ -4,12 +4,13 @@ import heroImg from '../../assets/bank-accounts.svg';
 import { Modal } from '@mui/material';
 import LinkAccountForm from '../../components/LinkAccountForm';
 import AccountCard from '../../components/AccountCard';
+import SuccessModal from '../../components/SuccessModal';
 
 function BankAccounts() {
   const [open, setOpen] = React.useState(false);
   const [accounts, setAccounts] = useState([]);
+  const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [modal, openModal] = useState(false);
 
   const handleUnlink = (id) => {
     setAccounts((prevAccounts) =>
@@ -26,9 +27,14 @@ function BankAccounts() {
       setAccounts([...accounts, { ...values, balance: 'NIL', id: Date.now() }]);
       resetForm();
       setOpen(false);
+      setSuccessModalOpen(true);
     } else {
       alert('Maximum number of accounts (5) reached');
     }
+  };
+
+  const handleSuccessModalClose = () => {
+    setSuccessModalOpen(false);
   };
 
   return (
@@ -93,6 +99,13 @@ function BankAccounts() {
           <LinkAccountForm onSubmit={onSubmit} onClose={handleClose} />
         </div>
       </Modal>
+
+      <SuccessModal
+        open={successModalOpen}
+        title="Account linked succcessful"
+        desc=" Account linked succcessful"
+        onClose={handleSuccessModalClose}
+      />
     </div>
   );
 }
