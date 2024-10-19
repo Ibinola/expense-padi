@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import forgotPasswordIcon from '../../../assets/forgot-password-icon.svg';
 import { confirmPasswordReset } from 'firebase/auth';
