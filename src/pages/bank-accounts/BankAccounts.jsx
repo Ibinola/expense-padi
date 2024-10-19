@@ -1,26 +1,15 @@
 import React, { useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import heroImg from '../../assets/bank-accounts.svg';
-import CustomInput from '../../components/CustomInput';
-import CustomDropdown from '../../components/CustomDropdown';
-import { Form } from 'formik';
-import { Formik } from 'formik';
-import img from '../../assets/table-icon.svg';
 import { Modal } from '@mui/material';
-import { HiChevronDown, HiDotsHorizontal, HiEye } from 'react-icons/hi';
-import { AiOutlineClose } from 'react-icons/ai';
-import { linkAccountValidationSchema } from '../../utils/validationSchema';
-import { IoTrashOutline } from 'react-icons/io5';
+import LinkAccountForm from '../../components/LinkAccountForm';
+import AccountCard from '../../components/AccountCard';
 
 function BankAccounts() {
   const [open, setOpen] = React.useState(false);
   const [accounts, setAccounts] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [modal, openModal] = useState(false);
-
-  const handleDropdown = (id) => {
-    setOpenDropdown(openDropdown === id ? null : id);
-  };
 
   const handleUnlink = (id) => {
     setAccounts((prevAccounts) =>
@@ -32,12 +21,6 @@ function BankAccounts() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const initialValues = {
-    accountName: '',
-    accountNumber: '',
-    bankName: '',
-  };
-
   const onSubmit = (values, { resetForm }) => {
     if (accounts.length < 5) {
       setAccounts([...accounts, { ...values, balance: 'NIL', id: Date.now() }]);
@@ -47,65 +30,6 @@ function BankAccounts() {
       alert('Maximum number of accounts (5) reached');
     }
   };
-
-  const renderAccountCard = (account) => (
-    <div
-      key={account.id}
-      className="relative bg-gradient-to-r from-[#3882F0] to-[#4081e4] text-white rounded-lg p-4 mb-4 w-full max-w-md font-manrope overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-30 border border-white/20"
-    >
-      {/* Card Content */}
-      <div className="relative z-10">
-        {/* Header */}
-        <div className="flex justify-between items-center">
-          <h3 className="text-sm mb-2 text-[#CDDDF4]">Account Balance</h3>
-          <button
-            onClick={() => handleDropdown(account.id)}
-            className="bg-[#81aceb] cursor-pointer border text-[#011128] rounded-lg p-1"
-          >
-            <HiDotsHorizontal />
-          </button>
-        </div>
-        {/* Balance */}
-        <div className="flex items-center justify-between">
-          <p className="text-2xl font-semibold text-[#CDDDF4]">
-            {account.balance}
-          </p>
-          <div className="text-white cursor-pointer">
-            <HiEye />
-          </div>
-          {openDropdown === account.id && (
-            <div className="absolute right-0 mt-2 w-28 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
-              <div className="py-1">
-                <button
-                  onClick={() => handleUnlink(account.id)}
-                  className="flex items-center py-3 px-1 text-red-500 text-xs w-full hover:bg-gray-100"
-                >
-                  <IoTrashOutline className="mr-2" /> Unlink account
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-        <div className=" my-3 border-t border-[#FFFFFF33] -mx-4 "></div>
-
-        {/* Bank Details */}
-        <div className="mt-2 bg-[#ffffff33] rounded-lg flex items-center justify-between ">
-          <div className="flex items-center p-2">
-            <div className="mr-2">
-              <img src={img} alt="bank logo" className="w-7 h-7" />
-            </div>
-            <div>
-              <p className="text-sm text-[#FFFFFF]">{account.accountNumber}</p>
-              <p className="text-sm text-[#D1D1D1]">{account.accountName}</p>
-            </div>
-          </div>
-          <div className="text-[#CDDDF4] cursor-pointer">
-            <HiChevronDown />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 
   return (
     <div className="flex flex-col p-4 md:p-2 lg:p-2 font-manrope space-y-4  ">
@@ -145,7 +69,13 @@ function BankAccounts() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {accounts.map(renderAccountCard)}
+          {accounts.map((account) => (
+            <AccountCard
+              key={account.id}
+              account={account}
+              onUnlink={handleUnlink}
+            />
+          ))}
         </div>
       )}
 
@@ -160,67 +90,7 @@ function BankAccounts() {
                 w-[90%] max-w-[500px] md:max-w-[600px] 
                 h-auto max-h-[90vh] overflow-y-auto mt-10 relative"
         >
-          {/* Close Button */}
-          <button
-            className="absolute top-4 right-4 text-gray-500 hover:text-black"
-            onClick={handleClose}
-          >
-            <AiOutlineClose size={24} />
-          </button>
-
-          {/* Modal Content */}
-          <div className="mx-auto items-center">
-            {/* Modal Title */}
-            <h2 className="text-[24px] md:text-[28px] font-bold text-center mb-5">
-              Link Account Details
-            </h2>
-
-            <Formik
-              initialValues={initialValues}
-              onSubmit={onSubmit}
-              validationSchema={linkAccountValidationSchema}
-            >
-              {({ isSubmitting }) => (
-                <Form className="flex flex-col space-y-4">
-                  {/* Bank Name Dropdown */}
-                  <CustomDropdown
-                    label="Bank Name"
-                    name="bankName"
-                    options={[{ value: 'gtb', label: 'Guaranty Trust Bank' }]}
-                  />
-
-                  {/* Account Number Input */}
-                  <CustomInput
-                    name="accountNumber"
-                    type="number"
-                    label="Account Number"
-                    placeholder="Enter account number"
-                    className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-
-                  {/* Account Name Input */}
-                  <CustomInput
-                    name="accountName"
-                    type="text"
-                    label="Account Name"
-                    placeholder="Enter account name"
-                    className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-
-                  {/* Continue Button */}
-                  <button
-                    type="submit"
-                    className={`py-4 mt-6 w-full text-sm rounded-md 
-                            bg-blue-600 text-white 
-                            ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Linking Account...' : 'Continue'}
-                  </button>
-                </Form>
-              )}
-            </Formik>
-          </div>
+          <LinkAccountForm onSubmit={onSubmit} onClose={handleClose} />
         </div>
       </Modal>
     </div>
