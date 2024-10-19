@@ -13,6 +13,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ResetPassword from './pages/auth/reset-password/ResetPassword';
 import ProtectedRoute from './components/ProtectedRoute';
+import NotFound from './components/NotFound';
 
 function App() {
   const routes = createBrowserRouter([
@@ -31,6 +32,10 @@ function App() {
     {
       path: '/reset-password',
       element: <ResetPassword />,
+    },
+    {
+      path: '*',
+      element: <NotFound />,
     },
     {
       element: <ProtectedRoute />,
