@@ -11,6 +11,7 @@ import Settings from './pages/settings/Settings';
 import LogOut from './pages/auth/logout/LogOut';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ResetPassword from './pages/auth/reset-password/ResetPassword';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -26,6 +27,10 @@ function App() {
     {
       path: '/forgot-password',
       element: <ForgotPassword />,
+    },
+    {
+      path: '/reset-password',
+      element: <ResetPassword />,
     },
     {
       element: <ProtectedRoute />,

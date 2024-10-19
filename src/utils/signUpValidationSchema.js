@@ -3,9 +3,23 @@ import * as Yup from 'yup';
 // Reusable validation
 export const emailValidation = Yup.string().email('Invalid email address').required("Please enter your email address");
 
-export const resetPasswordInitialValues = {
+export const forgotPasswordInitialValue = {
     email: ''
 }
+
+export const resetPasswordInitialValues = {
+    newPassword: '',
+    confirmPassword: '',
+}
+
+export const ResetPasswordSchema = Yup.object().shape({
+    newPassword: Yup.string()
+        .min(6, 'Password must be at least 6 characters long')
+        .required('New Password is required'),
+    confirmPassword: Yup.string()
+        .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
+        .required('Confirm Password is required'),
+});
 
 export const userSignUpValidationSchema = Yup.object({
     email: emailValidation,
