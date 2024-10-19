@@ -1,7 +1,7 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import forgotPasswordIcon from '../../../assets/forgot-password-icon.svg';
-import { confirmPasswordReset } from 'firebase/auth';
+import { confirmPasswordReset, verifyPasswordResetCode } from 'firebase/auth';
 import { auth } from '../../../utils/firebase';
 import { showToast } from '../../../utils/toast-config';
 import CustomButton from '../../../components/CustomButton';
