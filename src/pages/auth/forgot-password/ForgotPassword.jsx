@@ -5,10 +5,27 @@ import forgotPasswordIcon from '../../../assets/forgot-password-icon.svg';
 import { Form, Formik } from 'formik';
 import CustomInput from '../../../components/CustomInput';
 import { Link } from 'react-router-dom';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '../../../utils/firebase';
+import { toast } from 'react-toastify';
+import {
+  emailValidation,
+  resetPasswordInitialValues,
+} from '../../../utils/signUpValidationSchema';
 
 function ForgotPassword() {
-  const initialValue = {
-    email: '',
+  const onSubmit = async (values, { setSubmitting, resetForm, setErrors }) => {
+    try {
+      const { email } = values;
+      await sendPasswordResetEmail(auth, email);
+      toast.success('Password reset email sent successfully!');
+      resetForm();
+    } catch (error) {
+      setErrors({ email: error.message });
+      toast.error(error.message);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -37,8 +54,11 @@ function ForgotPassword() {
             </p>
           </div>
 
-          {/* ADD VALIDATION SCHEMA AND AN ONSUBMIT */}
-          <Formik initialValues={initialValue}>
+          <Formik
+            initialValues={resetPasswordInitialValues}
+            validationSchema={emailValidation}
+            onSubmit={onSubmit}
+          >
             {({ isSubmitting }) => (
               <Form className="flex flex-col space-y-7">
                 <CustomInput
@@ -47,7 +67,11 @@ function ForgotPassword() {
                   label="Email"
                   placeholder="Enter email address"
                 />
-                <CustomButton type="submit" label="Reset Password" />
+                <CustomButton
+                  type="submit"
+                  label="Reset Password"
+                  disabled={isSubmitting}
+                />
                 <Link
                   to={'/login'}
                   className="mt-4 text-black text-center text-sm font-medium"

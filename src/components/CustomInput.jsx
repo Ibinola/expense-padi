@@ -21,7 +21,11 @@ function CustomInput(props) {
           type={showPassword ? 'text' : type}
           name={name}
           placeholder={placeholder}
-          className="w-full p-1 md:p-2 border rounded-md border-[#D0D5DD]"
+          className={`w-full p-1 md:p-2 border rounded-md border-[#D0D5DD] ${
+            type === 'number'
+              ? '[-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none'
+              : ''
+          }`}
         />
         {type === 'password' && (
           <span
