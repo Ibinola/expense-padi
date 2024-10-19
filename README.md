@@ -8,7 +8,9 @@ Expense Padi is a modern, responsive web application built with React and Vite, 
 - Expense tracking and categorization
 - Bank account integration
 - Customizable tracking rules
-- Secure authentication system
+- Secure authentication system (Sign Up, Login, Reset Password, Forgot Password)
+- Routing with fallback for invalid routes
+- Protected Routes to ensure secure access to authenticated pages
 - Responsive design for mobile and desktop
 
 ## Technologies Used
@@ -21,6 +23,7 @@ Expense Padi is a modern, responsive web application built with React and Vite, 
 - Yup for form validation
 - React Router for navigation
 - Material-UI components
+- Firebase Authentication & Firestore for user management
 
 ## Getting Started
 
@@ -31,10 +34,42 @@ Expense Padi is a modern, responsive web application built with React and Vite, 
 
 ### Installation
 
-1. Clone the repository
-2. Install dependencies
-3. Start the development server
-4. Open your browser and visit `http://localhost:5173` to see the application running
+1. **Clone the repository:**
+
+   ```sh
+   git clone https://github.com/Ibinola/expense-padi.git
+   ```
+
+2. **Navigate to the project directory:**
+
+   ```bash
+   cd your-repo-name
+   ```
+
+3. **Install dependencies:**
+
+   ```bash
+    npm install
+   ```
+
+### Required Environment Variables
+
+1. `VITE_FIREBASE_API_KEY` - Your Firebase API Key
+2. `VITE_FIREBASE_AUTH_DOMAIN` - Your Firebase Auth Domain
+3. `VITE_FIREBASE_PROJECT_ID` - Your Firebase Project ID
+4. `VITE_FIREBASE_STORAGE_BUCKET` - Your Firebase Storage Bucket
+5. `VITE_FIREBASE_MESSAGING_SENDER_ID` - Your Firebase Messaging Sender ID
+6. `VITE_FIREBASE_APP_ID` - Your Firebase App ID
+
+## Usage
+
+To run the project locally:
+
+1. Start the development server
+   ```sh
+   npm run dev
+   ```
+2. Visit `http://localhost:5173` in your browser.
 
 ## Project Structure
 
@@ -43,27 +78,13 @@ The project follows a standard React application structure:
 - `src/`: Contains the source code
   - `assets/`: Static assets like images and icons
   - `components/`: Reusable React components
+  - `context/`: Manages user credentials and state globally using React's Context API
+  - `layout/`: Contains layout for main app structure
   - `pages/`: Individual page components
   - `utils/`: Utility functions and helpers
+  - `reducers/`: Contains reducer functions for state management
 - `public/`: Public assets
 
-## Key Components
-
-- Dashboard: Displays financial overview and charts
-- Expense Tracking: Allows users to manage and categorize expenses
-- Bank Accounts: Manages linked bank accounts
-
-## Styling
-
-The project uses Tailwind CSS for styling, providing a responsive and customizable design. Custom styles are defined in the `tailwind.config.js` file.
-
-## Authentication
-
-The application includes a basic authentication system with login, signup, and forgot password functionality.
-
-## Data Visualization
-
-Charts and graphs are implemented using Recharts to provide visual representations of financial data.
 
 ## Contributing
 
