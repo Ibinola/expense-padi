@@ -1,25 +1,23 @@
 import React from 'react';
 import { PiNotePencil } from 'react-icons/pi';
 import { useState } from 'react';
-import { getImageForRule } from '../../utils/getImageForRule';
 import { Modal } from '@mui/material';
 import { Form, Formik } from 'formik';
 import CustomDropdown from '../../components/CustomDropdown';
 import trackingrulehero from '../../assets/tracking-rule-hero.svg';
-import { IoEyeOutline } from 'react-icons/io5';
-import { RiDeleteBinLine } from 'react-icons/ri';
-import { trackingRulesValidationSchema } from '../../utils/validationSchema';
+import {
+  trackingRulesValidationSchema,
+  initialValues,
+} from '../../utils/validationSchema';
 import CustomTextArea from '../../components/CustomTextArea';
+import TrackingRuleCard from '../../components/TrackingRuleCard';
+import SuccessModal from '../../components/SuccessModal';
 
 function Configuration() {
   const [open, setOpen] = React.useState(false);
+  const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [rules, setRules] = useState([]);
   const [editingRule, setEditingRule] = useState(null);
-  const initialValues = {
-    typeOfTransaction: '',
-    remarksTrails: '',
-    remark: '',
-  };
 
   const handleOpen = () => {
     setEditingRule(null);
@@ -47,11 +45,14 @@ function Configuration() {
     resetForm();
     setOpen(false);
     setEditingRule(null);
+    setSuccessModalOpen(true);
   };
 
   const handleDeleteRule = (id) => {
     setRules(rules.filter((rule) => rule.id !== id));
   };
+
+  const handleSuccessModalClose = () => setSuccessModalOpen(false);
 
   return (
     <div className="flex flex-col p-4 md:p-2 lg:p-2 font-manrope space-y-4">
@@ -67,45 +68,14 @@ function Configuration() {
 
       {rules.length > 0 ? (
         <>
-          <p className="text-center text-[#121212 ] font-bold text-xl">
-            Tracking Rules
-          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[760px] w-full mx-auto">
             {rules.map((rule) => (
-              <div
+              <TrackingRuleCard
                 key={rule.id}
-                className="bg-white border border-[#E7E7E7] rounded-2xl shadow-lg p-4 flex items-center justify-between"
-              >
-                <div className="flex items-center space-x-4">
-                  <img
-                    src={getImageForRule(rule.remark)}
-                    alt={rule.remark}
-                    className="w-12 h-12 object-cover rounded-xl"
-                  />
-                  <div>
-                    <h3 className="font-bold text-[#121212] text-xl">
-                      {rule.remark}
-                    </h3>
-                    <p className="text-sm text-[#5D5D5D]">
-                      {rule.remarksTrails}, GTB
-                    </p>
-                  </div>
-                </div>
-                <div className="flex space-x-2">
-                  <button
-                    className="text-gray-400 hover:text-gray-600 cursor-pointer "
-                    onClick={() => handleEditRule(rule)}
-                  >
-                    <IoEyeOutline size={20} />
-                  </button>
-                  <button
-                    className="text-gray-400 cursor-pointer hover:text-red-500"
-                    onClick={() => handleDeleteRule(rule.id)}
-                  >
-                    <RiDeleteBinLine size={20} />
-                  </button>
-                </div>
-              </div>
+                rule={rule}
+                onEdit={handleEditRule}
+                onDelete={handleDeleteRule}
+              />
             ))}
           </div>
         </>
@@ -153,7 +123,7 @@ function Configuration() {
             </p>
 
             <Formik
-              initialValues={editingRule || initialValues}
+              initialValues={editingRule || initialValues.configuration}
               onSubmit={onSubmit}
               validationSchema={trackingRulesValidationSchema}
             >
@@ -202,6 +172,15 @@ function Configuration() {
           </div>
         </div>
       </Modal>
+
+      {/* Success Modal */}
+      <SuccessModal
+        open={successModalOpen}
+        title="Tracking Rules Set Successful"
+        desc=" Expense Padi will now track transactions based on this rule,
+               ensuring accurate and consistent monitoring."
+        onClose={handleSuccessModalClose}
+      />
     </div>
   );
 }

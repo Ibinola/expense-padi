@@ -2,19 +2,23 @@ import React from 'react';
 import CustomInput from '../../components/CustomInput';
 import { Form, Formik } from 'formik';
 import LabelDescription from '../../components/LabelDescription';
-import BasicModal from '../../components/Modal';
 import CustomDropdown from '../../components/CustomDropdown';
-// import Accordion from '../../components/Accordion';
+import { useUser } from '../../context/UserContext';
+import { showToast } from '../../utils/toast-config';
 
 function Settings() {
+  const { user } = useUser();
+
   const initialValues = {
-    firstName: '',
-    lastName: '',
+    firstName: user?.firstName,
+    lastName: user?.lastName,
     country: '',
     city: '',
   };
 
-  const onSubmit = (values) => {
+  const onSubmit = (values, { resetForm }) => {
+    showToast.success('Details saved!');
+    resetForm();
     console.log('form data', values);
   };
 
@@ -34,11 +38,7 @@ function Settings() {
             Expense <span className="text-[#0557C2]">Padi</span>
           </h2>
 
-          <Formik
-            initialValues={initialValues}
-            // validationSchema={signUpValidationSchema}
-            onSubmit={onSubmit}
-          >
+          <Formik initialValues={initialValues} onSubmit={onSubmit}>
             {({ isSubmitting }) => (
               <Form className="flex flex-col max-w-xl space-y-3">
                 <CustomInput
@@ -86,8 +86,10 @@ function Settings() {
                   ]}
                 />
 
-                {/* <CustomButton type="submit" label="Save Changes" /> */}
-                <button className=" py-1 px-1 md:py-2 border w-36 text-sm rounded-md cursor-pointer bg-[#0553C7] text-white">
+                <button
+                  type="submit"
+                  className=" py-1 px-1 md:py-2 border w-36 text-sm rounded-md cursor-pointer bg-[#0553C7] text-white"
+                >
                   Save Changes
                 </button>
               </Form>
@@ -135,7 +137,6 @@ function Settings() {
         role="tab"
         className="tab"
         aria-label="Security"
-        defaultChecked
       />
       <div role="tabpanel" className="tab-content mt-4">
         <div className="border rounded-xl p-6 space-y-4">
