@@ -6,7 +6,7 @@ import CustomInput from '../../../components/CustomInput';
 import SignUpAuthButton from '../../../components/SignUpAuthButton';
 import { FcGoogle } from 'react-icons/fc';
 import { FaApple } from 'react-icons/fa';
-import { userSignUpValidationSchema } from '../../../utils/signUpValidationSchema';
+import { userSignUpValidationSchema } from '../../../utils/validationSchema';
 import CustomButton from '../../../components/CustomButton';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../utils/firebase';
@@ -59,7 +59,7 @@ function Login() {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
-      
+
       // Get the user's ID token
       const token = await result.user.getIdToken();
 

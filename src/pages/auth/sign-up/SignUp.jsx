@@ -9,8 +9,8 @@ import CustomButton from '../../../components/CustomButton';
 import { Link } from 'react-router-dom';
 import {
   userSignUpValidationSchema,
-  signUpInitialValues,
-} from '../../../utils/signUpValidationSchema';
+  initialValues,
+} from '../../../utils/validationSchema';
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -106,7 +106,7 @@ function SignUp() {
 
           {/* FORM */}
           <Formik
-            initialValues={signUpInitialValues}
+            initialValues={initialValues.signUp}
             validationSchema={userSignUpValidationSchema}
             onSubmit={handleSubmit}
           >

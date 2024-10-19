@@ -8,9 +8,9 @@ import CustomButton from '../../../components/CustomButton';
 import AuthBgImage from '../../../components/AuthBgImage';
 import { useNavigate } from 'react-router-dom';
 import {
-  resetPasswordInitialValues,
+  initialValues,
   ResetPasswordSchema,
-} from '../../../utils/signUpValidationSchema';
+} from '../../../utils/validationSchema';
 import CustomInput from '../../../components/CustomInput';
 import { useEffect, useState } from 'react';
 import { CircleLoader } from 'react-spinners';
@@ -92,7 +92,7 @@ function ResetPassword() {
           </div>
 
           <Formik
-            initialValues={resetPasswordInitialValues}
+            initialValues={initialValues.resetPassword}
             validationSchema={ResetPasswordSchema}
             onSubmit={handleSubmit}
           >

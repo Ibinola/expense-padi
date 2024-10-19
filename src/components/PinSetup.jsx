@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Formik } from 'formik';
 import CustomButton from './CustomButton';
-import { PinSetupSchema } from '../utils/signUpValidationSchema';
+import { PinSetupSchema } from '../utils/validationSchema';
 
 function PinSetup({ onSubmit, onBack }) {
   const [pin, setPin] = useState(['', '', '', '']);

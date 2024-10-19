@@ -3,7 +3,7 @@ import { Form, Formik } from 'formik';
 import CustomInput from './CustomInput';
 import CustomButton from './CustomButton';
 import CustomDropdown from './CustomDropdown';
-import { linkAccountValidationSchema } from '../utils/signUpValidationSchema';
+import { linkAccountValidationSchema } from '../utils/validationSchema';
 import { bankOptions } from '../utils/banks';
 
 function LinkAccountDetailsForm({ onSubmit, onBack, initialValues }) {

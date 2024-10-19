@@ -9,9 +9,9 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../../utils/firebase';
 import { showToast } from '../../../utils/toast-config';
 import {
-  emailValidation,
-  forgotPasswordInitialValue,
-} from '../../../utils/signUpValidationSchema';
+  ForgotPasswordSchema,
+  initialValues,
+} from '../../../utils/validationSchema';
 
 function ForgotPassword() {
   const onSubmit = async (values, { setSubmitting, resetForm, setErrors }) => {
@@ -55,8 +55,8 @@ function ForgotPassword() {
           </div>
 
           <Formik
-            initialValues={forgotPasswordInitialValue}
-            validationSchema={emailValidation}
+            initialValues={initialValues.forgotPassword}
+            validationSchema={ForgotPasswordSchema}
             onSubmit={onSubmit}
           >
             {({ isSubmitting }) => (

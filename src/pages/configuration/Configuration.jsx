@@ -8,7 +8,7 @@ import CustomDropdown from '../../components/CustomDropdown';
 import trackingrulehero from '../../assets/tracking-rule-hero.svg';
 import { IoEyeOutline } from 'react-icons/io5';
 import { RiDeleteBinLine } from 'react-icons/ri';
-import { trackingRulesValidationSchema } from '../../utils/signUpValidationSchema';
+import { trackingRulesValidationSchema } from '../../utils/validationSchema';
 import CustomTextArea from '../../components/CustomTextArea';
 
 function Configuration() {

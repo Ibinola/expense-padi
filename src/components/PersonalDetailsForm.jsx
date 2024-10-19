@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 import CustomInput from './CustomInput';
-import { PersonalDetailsSchema } from '../utils/signUpValidationSchema';
+import { PersonalDetailsSchema } from '../utils/validationSchema';
 import CustomButton from './CustomButton';
 
 function PersonalDetailsForm({ onSubmit, initialValues }) {

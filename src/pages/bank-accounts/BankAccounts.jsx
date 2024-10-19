@@ -9,7 +9,7 @@ import img from '../../assets/table-icon.svg';
 import { Modal } from '@mui/material';
 import { HiChevronDown, HiDotsHorizontal, HiEye } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
-import { linkAccountValidationSchema } from '../../utils/signUpValidationSchema';
+import { linkAccountValidationSchema } from '../../utils/validationSchema';
 import { IoTrashOutline } from 'react-icons/io5';
 
 function BankAccounts() {
