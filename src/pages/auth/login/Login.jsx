@@ -6,7 +6,10 @@ import CustomInput from '../../../components/CustomInput';
 import SignUpAuthButton from '../../../components/SignUpAuthButton';
 import { FcGoogle } from 'react-icons/fc';
 import { FaApple } from 'react-icons/fa';
-import { userSignUpValidationSchema } from '../../../utils/validationSchema';
+import {
+  userSignUpValidationSchema,
+  initialValues,
+} from '../../../utils/validationSchema';
 import CustomButton from '../../../components/CustomButton';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../utils/firebase';
@@ -15,11 +18,6 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 function Login() {
   const navigate = useNavigate();
-
-  const initialValues = {
-    email: '',
-    password: '',
-  };
 
   const onSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
@@ -121,7 +119,7 @@ function Login() {
 
             {/* FORM */}
             <Formik
-              initialValues={initialValues}
+              initialValues={initialValues.logIn}
               validationSchema={userSignUpValidationSchema}
               onSubmit={onSubmit}
             >
