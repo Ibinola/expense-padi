@@ -15,33 +15,10 @@ import ResetPassword from './pages/auth/reset-password/ResetPassword';
 import ProtectedRoute from './components/ProtectedRoute';
 import NotFound from './components/NotFound';
 import AccountDetails from './pages/auth/sign-up/AccountDetails';
+import { UserProvider } from './context/UserContext';
 
 function App() {
   const routes = createBrowserRouter([
-    {
-      path: '/',
-      element: <SignUp />,
-    },
-    {
-      path: '/account-details',
-      element: <AccountDetails />,
-    },
-    {
-      path: '/login',
-      element: <Login />,
-    },
-    {
-      path: '/forgot-password',
-      element: <ForgotPassword />,
-    },
-    {
-      path: '/reset-password',
-      element: <ResetPassword />,
-    },
-    {
-      path: '*',
-      element: <NotFound />,
-    },
     {
       element: <ProtectedRoute />,
       children: [
@@ -76,13 +53,37 @@ function App() {
         },
       ],
     },
+    {
+      path: '/',
+      element: <SignUp />,
+    },
+    {
+      path: '/account-details',
+      element: <AccountDetails />,
+    },
+    {
+      path: '/login',
+      element: <Login />,
+    },
+    {
+      path: '/forgot-password',
+      element: <ForgotPassword />,
+    },
+    {
+      path: '/reset-password',
+      element: <ResetPassword />,
+    },
+    {
+      path: '*',
+      element: <NotFound />,
+    },
   ]);
 
   return (
-    <>
+    <UserProvider>
       <RouterProvider router={routes} />
       <ToastContainer />
-    </>
+    </UserProvider>
   );
 }
 

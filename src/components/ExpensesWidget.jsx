@@ -1,8 +1,14 @@
-import React from 'react';
-import { HiChevronDown, HiDotsHorizontal, HiEye } from 'react-icons/hi';
+import React, { useState } from 'react';
+import { HiChevronDown, HiEye, HiEyeOff } from 'react-icons/hi';
 import img from '../assets/table-icon.svg';
 
 function ExpensesWidget(props) {
+  const [isBalanceVisible, setIsBalanceVisible] = useState(false);
+
+  const toggleBalanceVisibility = () => {
+    setIsBalanceVisible(!isBalanceVisible);
+  };
+
   return (
     <div className="relative bg-gradient-to-r from-[#3882F0] to-[#4081e4] text-white rounded-lg p-4 font-manrope overflow-hidden backdrop-filter backdrop-blur-lg bg-opacity-30 border border-white/20">
       {/* Card Content */}
@@ -10,17 +16,17 @@ function ExpensesWidget(props) {
         {/* Header */}
         <div className="flex justify-between items-center">
           <h3 className="text-sm mb-2 text-[#CDDDF4]">Account Balance</h3>
-          {/* <div className="bg-[#81aceb] cursor-pointer border text-[#011128] rounded-lg p-1">
-            <HiDotsHorizontal />
-          </div> */}
         </div>
         {/* Balance */}
         <div className="flex items-center justify-between">
           <p className="text-2xl font-semibold text-[#CDDDF4]">
-            {props.balance}
+            {isBalanceVisible ? props.balance : '••••••••'}
           </p>
-          <div className="text-white cursor-pointer">
-            <HiEye />
+          <div
+            className="text-white cursor-pointer"
+            onClick={toggleBalanceVisibility}
+          >
+            {isBalanceVisible ? <HiEyeOff /> : <HiEye />}
           </div>
         </div>
         <div className=" my-3 border-t border-[#FFFFFF33] -mx-4 "></div>

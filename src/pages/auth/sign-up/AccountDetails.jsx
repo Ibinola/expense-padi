@@ -5,9 +5,12 @@ import PersonalDetailsForm from '../../../components/PersonalDetailsForm';
 import PinSetup from '../../../components/PinSetup';
 import { useNavigate } from 'react-router-dom';
 import { showToast } from '../../../utils/toast-config';
+import { useUser } from '../../../context/UserContext';
 import { auth } from '../../../utils/firebase';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
 function AccountDetails() {
+  const { setUser } = useUser();
   const [step, setStep] = useState(1);
   const [formValues, setFormValues] = useState({
     personalDetails: {
@@ -58,12 +61,26 @@ function AccountDetails() {
         ...formValues.accountDetails,
         pin: values.pin,
       };
-      showToast.success('Profile updated successfully!');
 
-      // Redirect to the dashboard
-      navigate('/dashboard');
+      if (values.pin) {
+        userData.pin = values.pin;
+      }
+
+      const db = getFirestore();
+      const authUser = auth.currentUser;
+      if (authUser) {
+        Object.keys(userData).forEach(
+          (key) => userData[key] === undefined && delete userData[key]
+        );
+
+        await setDoc(doc(db, 'users', authUser.uid), userData);
+        setUser({ ...authUser, ...userData });
+        showToast.success('Profile updated successfully!');
+        navigate('/dashboard');
+      } else {
+        throw new Error('No authenticated user found');
+      }
     } catch (error) {
-      console.error('Profile update error:', error);
       showToast.error('Failed to update profile. Please try again.');
     }
   };

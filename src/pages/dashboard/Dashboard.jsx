@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import icon1 from '../../assets/card-1-icon.svg';
 import icon2 from '../../assets/card-2-icon.svg';
 import DashboardWidget from '../../components/DashboardWidget';
