@@ -9,6 +9,7 @@ export const forgotPasswordInitialValue = {
 export const signUpInitialValues = {
     email: '',
     password: '',
+    agreeToTerms: false,
 }
 
 export const resetPasswordInitialValues = {
@@ -34,6 +35,7 @@ export const ResetPasswordSchema = Yup.object().shape({
 export const userSignUpValidationSchema = Yup.object({
     email: emailValidation,
     password: passwordValidation,
+    agreeToTerms: Yup.boolean().oneOf([true], 'You must agree to the terms and conditions'),
 });
 
 export const linkAccountValidationSchema = Yup.object({

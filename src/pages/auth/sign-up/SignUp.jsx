@@ -18,6 +18,7 @@ import {
 } from 'firebase/auth';
 import { auth } from '../../../utils/firebase';
 import AuthBgImage from '../../../components/AuthBgImage';
+import TermsCheckbox from '../../../components/TermsCheckbox';
 import { showToast } from '../../../utils/toast-config';
 
 function SignUp() {
@@ -124,18 +125,7 @@ function SignUp() {
                   placeholder="Enter password"
                 />
 
-                <p className="font-source text-sm mt-4 p-1 text-black ">
-                  <input type="checkbox" className="mr-2" />
-                  By clicking the 'Sign up' button, you agree to our{' '}
-                  <span className="underline text-[#0553C7]">
-                    Terms, Conditions{' '}
-                  </span>
-                  and{' '}
-                  <span className="underline text-[#0553C7]">
-                    Privacy policies
-                  </span>
-                  .
-                </p>
+                <TermsCheckbox />
 
                 <CustomButton
                   type="submit"
