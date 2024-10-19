@@ -19,7 +19,6 @@ function Settings() {
   const onSubmit = (values, { resetForm }) => {
     showToast.success('Details saved!');
     resetForm();
-    console.log('form data', values);
   };
 
   return (

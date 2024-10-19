@@ -75,7 +75,7 @@ function Login() {
   };
 
   const handleAppleLogin = async () => {
-    console.log('not yet');
+    return;
   };
 
   return (
